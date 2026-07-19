@@ -1,0 +1,66 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    expose:
+      - "80"
+    environment:
+      DB_HOST: db
+      DB_USER: jaxpay
+      DB_PASS: ${DB_PASS}
+      DB_NAME: jaxpay_db
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_FROM: ${SMTP_FROM:-noreply@jaxpay.id}
+      SMTP_FROM_NAME: JAXPAY Digital Wallet
+      BASE_URL: ${BASE_URL:-http://localhost/}
+    volumes:
+      - uploads:/var/www/html/assets/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - dokploy-network
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    restart: unless-stopped
+    expose:
+      - "80"
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 64M
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - dokploy-network
+
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_DATABASE: jaxpay_db
+      MYSQL_USER: jaxpay
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./jaxpay/database/jaxpay.sql:/docker-entrypoint-initdb.d/jaxpay.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASS}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - dokploy-network
+
+volumes:
+  uploads:
+  db_data:
+
+networks:
+  dokploy-network:
+    external: true

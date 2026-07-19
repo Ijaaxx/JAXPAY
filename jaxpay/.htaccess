@@ -1,0 +1,44 @@
+Options -Indexes
+ServerSignature Off
+
+# Protect sensitive files
+<FilesMatch "\.(sql|log|env|htpasswd)$">
+    Require all denied
+</FilesMatch>
+
+# Protect vendor from direct access
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct access to proses/ folder (allow only via PHP)
+    RewriteCond %{THE_REQUEST} ^.+/proses/.+\.php [NC]
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?localhost [NC]
+    # Comment out for localhost dev:
+    # RewriteRule ^ - [F,L]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options SAMEORIGIN
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# PHP settings for uploads
+<IfModule mod_php.c>
+    php_value upload_max_filesize 5M
+    php_value post_max_size 6M
+    php_value max_execution_time 60
+    php_value session.cookie_httponly 1
+</IfModule>
+
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+</IfModule>

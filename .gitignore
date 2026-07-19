@@ -1,0 +1,9 @@
+.env
+vendor/
+jaxpay/vendor/
+jaxpay.zip
+jaxpay/output.html
+jaxpay/assets/uploads/topup/*
+jaxpay/assets/uploads/profile/*
+!jaxpay/assets/uploads/topup/.gitkeep
+!jaxpay/assets/uploads/profile/.gitkeep
