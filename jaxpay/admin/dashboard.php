@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAXPAY Admin - Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <script src="../assets/js/theme.js"></script>
+</head>
+<body>
 <?php
 session_start();
 require_once '../koneksi.php';
@@ -39,20 +53,8 @@ $activity = $koneksi->query("SELECT * FROM activity_logs ORDER BY created_at DES
 // ── Recent Top Up Pending ──
 $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN users u ON tp.user_id=u.id WHERE tp.status='pending' ORDER BY tp.created_at DESC LIMIT 5");
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAXPAY Admin - Dashboard</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="../assets/css/admin.css?v=2">
-  <link rel="stylesheet" href="../assets/css/theme.css?v=4">
-  
-</head>
-<body><?php include 'sidebar.php'; ?>
+
+<?php include 'sidebar.php'; ?>
 <?php include 'navbar.php'; ?>
 
 <main class="admin-main animate-in">
@@ -108,28 +110,16 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
         <h3><i class="fas fa-chart-line" style="color:var(--primary-light)"></i> Grafik Transaksi 7 Hari</h3>
         <span class="badge badge-primary">Real-time</span>
       </div>
-      <div class="admin-card-body" style="padding: 0;">
-        <div class="chart-wrapper" style="position: relative; height: 380px; width: 100%; padding: 20px;">
-          <div class="chart-loading" data-loader="txChart">
-            <div class="spinner"></div>
-            <div>Memuat grafik transaksi...</div>
-          </div>
-          <canvas id="txChart"></canvas>
-        </div>
+      <div class="admin-card-body padded">
+        <div class="chart-container"><canvas id="txChart"></canvas></div>
       </div>
     </div>
     <div class="admin-card">
       <div class="admin-card-header">
         <h3><i class="fas fa-chart-pie" style="color:var(--accent)"></i> Distribusi User</h3>
       </div>
-      <div class="admin-card-body" style="padding: 0;">
-        <div class="chart-wrapper" style="position: relative; height: 380px; width: 100%; padding: 20px;">
-          <div class="chart-loading" data-loader="roleChart">
-            <div class="spinner"></div>
-            <div>Memuat distribusi user...</div>
-          </div>
-          <canvas id="roleChart"></canvas>
-        </div>
+      <div class="admin-card-body padded">
+        <div class="chart-container"><canvas id="roleChart"></canvas></div>
       </div>
     </div>
   </div>
@@ -155,19 +145,16 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
           $tipe_labels = ['topup'=>'Top Up','transfer_masuk'=>'Terima','transfer_keluar'=>'Kirim','pembayaran'=>'Bayar','qr_payment'=>'QR Pay'];
           while ($tx = $recent_tx->fetch_assoc()):
             $is_pos = in_array($tx['tipe'], ['topup','transfer_masuk']);
-            $tx_status = strtolower($tx['status'] ?? 'success');
-            $status_class = in_array($tx_status, ['success','completed','approved','paid']) ? 'success' : (in_array($tx_status, ['pending','waiting']) ? 'warning' : 'danger');
-            $status_label = $tx['status'] ?? ($is_pos ? 'Success' : 'Completed');
           ?>
           <tr>
-            <td><code style="font-size:11px;color:var(--accent)"><?= htmlspecialchars($tx['kode_transaksi']) ?></code></td>
+            <td><code style="font-size:11px;color:var(--accent)"><?= $tx['kode_transaksi'] ?></code></td>
             <td><?= htmlspecialchars($tx['nama']) ?></td>
-            <td><span class="badge badge-<?= $is_pos ? 'success' : 'warning' ?>"><?= htmlspecialchars($tipe_labels[$tx['tipe']] ?? $tx['tipe']) ?></span></td>
-            <td style="font-weight:700;color:<?= $is_pos ? '#10B981' : '#EF4444' ?>">
-              <?= $is_pos ? '+' : '-' ?>Rp <?= number_format($tx['jumlah'], 0, ',', '.') ?>
+            <td><span class="badge badge-<?= $is_pos?'success':'warning' ?>"><?= $tipe_labels[$tx['tipe']]??$tx['tipe'] ?></span></td>
+            <td style="font-weight:700;color:<?= $is_pos?'#10B981':'#EF4444' ?>">
+              <?= $is_pos?'+':'-' ?>Rp <?= number_format($tx['jumlah'],0,',','.') ?>
             </td>
-            <td style="color:var(--text-muted);font-size:12px"><?= date('d/m H:i', strtotime($tx['created_at'])) ?></td>
-            <td><span class="badge badge-<?= $status_class ?>"><?= htmlspecialchars(ucfirst($status_label)) ?></span></td>
+            <td style="color:var(--text-muted);font-size:12px"><?= date('d/m H:i',strtotime($tx['created_at'])) ?></td>
+            <td><span class="badge badge-success">Success</span></td>
           </tr>
           <?php endwhile; ?>
           </tbody>
@@ -224,219 +211,64 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
           <?php endwhile; ?>
         </div>
       </div>
+
     </div>
   </div>
+
 </main>
 <?php include 'footer.php'; ?>
 
 <script>
-function getThemeColors() {
-  return {
-    txBg: '#6C3CE1',
-    txAccent: '#00D4FF',
-    mutedColor: '#64748b',
-    surfaceBorder: 'rgba(15, 23, 42, 0.1)',
-    surfaceColor: '#ffffff',
-    textPrimary: '#0f172a',
-    txGradientStart: 'rgba(108, 60, 225, 0.38)',
-    txGradientEnd: 'rgba(108, 60, 225, 0.03)',
-    txAccentGradientStart: 'rgba(0, 212, 255, 0.32)',
-    txAccentGradientEnd: 'rgba(0, 212, 255, 0.04)'
-  };
-}
-
-function createGradient(ctx, start, end) {
-  const gradient = ctx.createLinearGradient(0, 0, 0, 380);
-  gradient.addColorStop(0, start);
-  gradient.addColorStop(1, end);
-  return gradient;
-}
-
-function hideChartLoader(chartId) {
-  const loader = document.querySelector(`.chart-loading[data-loader="${chartId}"]`);
-  if (loader) loader.classList.add('is-hidden');
-}
-
-let txChartInstance = null;
-let roleChartInstance = null;
-
-function renderCharts() {
-  const colors = getThemeColors();
-
-  let txCtx = document.getElementById('txChart');
-  if (txCtx && !txChartInstance) {
-
-    const txGradient = createGradient(txCtx.getContext('2d'), colors.txGradientStart, colors.txGradientEnd);
-    const txTopupGradient = createGradient(txCtx.getContext('2d'), colors.txAccentGradientStart, colors.txAccentGradientEnd);
-
-    txChartInstance = new Chart(txCtx.getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: <?= json_encode($chart_labels) ?>,
-        datasets: [
-          {
-            label: 'Pembayaran',
-            data: <?= json_encode($chart_data) ?>,
-            borderColor: colors.txBg,
-            backgroundColor: txGradient,
-            tension: 0.42,
-            fill: true,
-            pointRadius: 4,
-            pointHoverRadius: 8,
-            pointBackgroundColor: '#fff',
-            pointBorderColor: colors.txBg,
-            pointBorderWidth: 2,
-            borderWidth: 3,
-            hoverBorderWidth: 3,
-            pointHoverBorderColor: colors.textPrimary,
-            pointStyle: 'circle'
-          },
-          {
-            label: 'Top Up Approved',
-            data: <?= json_encode($chart_topup) ?>,
-            borderColor: colors.txAccent,
-            backgroundColor: txTopupGradient,
-            tension: 0.42,
-            fill: true,
-            pointRadius: 4,
-            pointHoverRadius: 8,
-            pointBackgroundColor: '#fff',
-            pointBorderColor: colors.txAccent,
-            pointBorderWidth: 2,
-            borderWidth: 3,
-            hoverBorderWidth: 3,
-            pointStyle: 'circle'
-          }
-        ]
+// Transaction Chart
+const txCtx = document.getElementById('txChart').getContext('2d');
+new Chart(txCtx, {
+  type: 'line',
+  data: {
+    labels: <?= json_encode($chart_labels) ?>,
+    datasets: [
+      {
+        label: 'Pembayaran (Rp)',
+        data: <?= json_encode($chart_data) ?>,
+        borderColor: '#6C3CE1', backgroundColor: 'rgba(108,60,225,0.1)',
+        tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#6C3CE1', pointBorderColor: '#fff', pointBorderWidth: 2
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 1000, easing: 'easeOutQuart' },
-        layout: { padding: { top: 10, right: 10, bottom: 0, left: 0 } },
-        interaction: { mode: 'nearest', intersect: false, axis: 'x' },
-        plugins: {
-          legend: {
-            position: 'top',
-            labels: {
-              color: colors.textPrimary,
-              boxWidth: 10,
-              boxHeight: 10,
-              padding: 20,
-              usePointStyle: true,
-              pointStyle: 'circle',
-              font: { size: 13, weight: '600', family: "'Inter', 'Segoe UI', sans-serif" }
-            }
-          },
-          tooltip: {
-            backgroundColor: colors.surfaceColor,
-            titleColor: colors.textPrimary,
-            bodyColor: colors.textPrimary,
-            borderColor: colors.surfaceBorder,
-            borderWidth: 1,
-            displayColors: false,
-            padding: 14,
-            cornerRadius: 14,
-            callbacks: {
-              label: (ctx) => ` Rp ${Number(ctx.parsed.y || 0).toLocaleString('id-ID')}`
-            }
-          }
-        },
-        scales: {
-          x: {
-            grid: { color: colors.surfaceBorder, drawBorder: false, display: false },
-            ticks: { color: colors.mutedColor, font: { size: 12, family: "'Inter', sans-serif" }, padding: 10 },
-            border: { color: colors.surfaceBorder, display: false }
-          },
-          y: {
-            beginAtZero: true,
-            grid: { color: colors.surfaceBorder, borderDash: [5, 5], drawBorder: false },
-            ticks: {
-              color: colors.mutedColor,
-              font: { size: 12, family: "'Inter', sans-serif" },
-              padding: 10,
-              callback: (value) => `Rp ${Number(value).toLocaleString('id-ID')}`
-            },
-            border: { color: colors.surfaceBorder, display: false }
-          }
-        }
+      {
+        label: 'Top Up Approved (Rp)',
+        data: <?= json_encode($chart_topup) ?>,
+        borderColor: '#10B981', backgroundColor: 'rgba(16,185,129,0.08)',
+        tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#10B981', pointBorderColor: '#fff', pointBorderWidth: 2
       }
-    });
-    hideChartLoader('txChart');
-  }
-
-  let roleCtx = document.getElementById('roleChart');
-  if (roleCtx && !roleChartInstance) {
-
-    
-    roleChartInstance = new Chart(roleCtx.getContext('2d'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Student', 'Teacher', 'Parent', 'Merchant'],
-        datasets: [{
-          data: <?= json_encode($role_data) ?>,
-          backgroundColor: ['#6C3CE1', '#00D4FF', '#10B981', '#F59E0B'],
-          borderColor: colors.surfaceColor,
-          borderWidth: 3,
-          hoverOffset: 14,
-          hoverBorderColor: '#fff',
-          hoverBorderWidth: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { animateRotate: true, duration: 1100, easing: 'easeOutQuart' },
-        cutout: '70%',
-        layout: { padding: 20 },
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              color: colors.textPrimary,
-              font: { size: 13, weight: '600', family: "'Inter', 'Segoe UI', sans-serif" },
-              padding: 20,
-              usePointStyle: true,
-              pointStyle: 'circle'
-            }
-          },
-          tooltip: {
-            backgroundColor: colors.surfaceColor,
-            titleColor: colors.textPrimary,
-            bodyColor: colors.textPrimary,
-            borderColor: colors.surfaceBorder,
-            borderWidth: 1,
-            displayColors: true,
-            usePointStyle: true,
-            padding: 16,
-            cornerRadius: 14,
-            callbacks: {
-              label: (ctx) => {
-                const value = ctx.parsed.toLocaleString('id-ID');
-                const total = ctx.chart.data.datasets[ctx.datasetIndex].data.reduce((sum, item) => sum + (Number(item) || 0), 0);
-                const percent = total ? Math.round((ctx.parsed / total) * 100) : 0;
-                return ` ${ctx.label}: ${value} (${percent}%)`;
-              }
-            }
-          }
-        },
-        interaction: { mode: 'nearest', intersect: true }
-      }
-    });
-    hideChartLoader('roleChart');
-  }
-}
-
-// Initial draw
-renderCharts();
-
-// Fix for BFCache (canvas cleared on navigating back)
-window.addEventListener('pageshow', (e) => {
-  if (e.persisted) {
-    if (txChartInstance) txChartInstance.update();
-    if (roleChartInstance) roleChartInstance.update();
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#E8E8F0', font: { size: 12 } } } },
+    scales: {
+      x: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11} }, grid: { color: 'rgba(255,255,255,0.05)' } },
+      y: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11}, callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(255,255,255,0.05)' } }
+    }
   }
 });
+
+// Role Chart
+const roleCtx = document.getElementById('roleChart').getContext('2d');
+new Chart(roleCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Student', 'Teacher', 'Parent', 'Merchant'],
+    datasets: [{
+      data: <?= json_encode($role_data) ?>,
+      backgroundColor: ['rgba(108,60,225,0.8)','rgba(0,212,255,0.8)','rgba(16,185,129,0.8)','rgba(245,158,11,0.8)'],
+      borderColor: '#16162A', borderWidth: 3, hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '65%',
+    plugins: { legend: { position: 'bottom', labels: { color: '#E8E8F0', font:{size:12}, padding: 14 } } }
+  }
+});
+
+if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
 </script>
 
 
