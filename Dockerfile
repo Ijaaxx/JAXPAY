@@ -13,4 +13,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && rm -rf /tmp/build
 
 COPY jaxpay/ /var/www/html/
-RUN chown -R www-data:www-data /var/www/html/assets/uploads
+RUN chmod -R 755 /var/www/html/assets \
+    && chown -R www-data:www-data /var/www/html/assets/uploads

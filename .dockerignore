@@ -1,0 +1,5 @@
+.git
+.env
+vendor/
+jaxpay/vendor/
+jaxpay.zip

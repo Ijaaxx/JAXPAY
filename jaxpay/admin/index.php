@@ -16,37 +16,107 @@ unset($_SESSION['admin_error']);
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--primary:#6C3CE1;--accent:#00D4FF;--dark:#ffffff;--surface:#f8fafc;--border:rgba(15,23,42,0.1)}
-body{min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',system-ui,sans-serif;color:#0f172a;
-  background:#f4f5ff;
-  background-image:radial-gradient(ellipse 70% 70% at 10% 10%,rgba(108,60,225,0.08) 0%,transparent 60%),
-  radial-gradient(ellipse 60% 60% at 90% 90%,rgba(0,212,255,0.06) 0%,transparent 55%);
+body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color:#0f172a;background:#f8fafc;overflow-x:hidden;}
+
+/* Split Layout */
+.login-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
 }
-.login-wrap{width:100%;max-width:420px;padding:20px}
-.login-logo{text-align:center;margin-bottom:36px}
-.logo-box{width:72px;height:72px;background:linear-gradient(135deg,#6C3CE1,#00D4FF);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;box-shadow:0 8px 32px rgba(108,60,225,0.4)}
-.logo-img{width:72px;height:72px;display:block;margin:0 auto 16px;border-radius:18px;object-fit:contain}
-.login-logo h1{font-size:30px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#1a0050,#6C3CE1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.login-logo p{color:#475569;font-size:13px;margin-top:6px}
-.admin-badge{display:inline-block;background:rgba(108,60,225,0.08);border:1px solid rgba(108,60,225,0.2);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;color:#6C3CE1;letter-spacing:1px;margin-top:10px}
-.login-card{background:#ffffff;border:1px solid var(--border);border-radius:20px;padding:32px;box-shadow:0 12px 40px rgba(15,23,42,0.06)}
-.login-card h2{font-size:20px;font-weight:700;margin-bottom:6px;color:#0f172a}
-.login-card p{color:#475569;font-size:13px;margin-bottom:28px}
-.form-group{margin-bottom:18px}
-.form-label{display:block;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.input-wrap{position:relative}
-.input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9B72EF;font-size:15px}
-.form-input{width:100%;background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:13px 14px 13px 44px;font-size:14px;color:#0f172a;outline:none;transition:all 0.3s;font-family:inherit}
-.form-input::placeholder{color:#94a3b8}
-.form-input:focus{border-color:#6C3CE1;background:rgba(108,60,225,0.04);box-shadow:0 0 0 3px rgba(108,60,225,0.12)}
-.toggle-pass{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:#94a3b8;font-size:14px;background:none;border:none}
-.btn-login{width:100%;background:linear-gradient(135deg,#6C3CE1,#9B72EF);border:none;border-radius:12px;padding:15px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.3s;font-family:inherit;margin-top:4px}
-.btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(108,60,225,0.25)}
-.btn-login:active{transform:translateY(0)}
-.back-link{text-align:center;margin-top:20px;font-size:13px;color:#64748b}
-.back-link a{color:#6C3CE1;text-decoration:none;font-weight:600}
-.back-link a:hover{text-decoration:underline}
-.demo-hint{margin-top:18px;background:rgba(108,60,225,0.06);border:1px solid rgba(108,60,225,0.15);border-radius:12px;padding:12px 14px;font-size:12px;color:#475569}
-.demo-hint strong{color:#6C3CE1;display:block;margin-bottom:4px}
+
+.login-hero {
+  flex: 1;
+  background-image: url('../assets/img/sekolah.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: none; /* hidden on mobile */
+}
+
+@media(min-width: 900px) {
+  .login-hero { display: flex; align-items: flex-end; }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(108,60,225,0.85) 0%, rgba(0,212,255,0.6) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  padding: 60px;
+  color: white;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-content h2 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.hero-content p {
+  font-size: 16px;
+  opacity: 0.9;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.login-form-area {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #f4f5ff;
+}
+
+@media(min-width: 900px) {
+  .login-form-area { flex: 0 0 450px; box-shadow: -10px 0 30px rgba(0,0,0,0.05); z-index: 20; }
+}
+
+.login-wrap {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  animation: fadeIn 0.5s ease;
+}
+
+.login-logo { text-align:center; margin-bottom: 30px; }
+.logo-img { width: 72px; height: 72px; display: block; margin: 0 auto 16px; border-radius: 18px; object-fit: contain; }
+.login-logo h1 { font-size: 28px; font-weight: 800; letter-spacing: 1px; background: linear-gradient(135deg, #1a0050, #6C3CE1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.login-logo p { color: #475569; font-size: 13px; margin-top: 6px; }
+.admin-badge { display: inline-block; background: rgba(108,60,225,0.08); border: 1px solid rgba(108,60,225,0.2); border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 700; color: #6C3CE1; letter-spacing: 1px; margin-top: 10px; }
+
+.login-card { background: #ffffff; border: 1px solid var(--border); border-radius: 20px; padding: 32px; box-shadow: 0 12px 40px rgba(15,23,42,0.06); }
+.login-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #0f172a; }
+.login-card p { color: #475569; font-size: 13px; margin-bottom: 24px; }
+
+.form-group { margin-bottom: 18px; }
+.form-label { display: block; font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.input-wrap { position: relative; }
+.input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #9B72EF; font-size: 15px; }
+.form-input { width: 100%; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 13px 14px 13px 44px; font-size: 14px; color: #0f172a; outline: none; transition: all 0.3s; font-family: inherit; }
+.form-input::placeholder { color: #94a3b8; }
+.form-input:focus { border-color: #6C3CE1; background: rgba(108,60,225,0.04); box-shadow: 0 0 0 3px rgba(108,60,225,0.12); }
+.toggle-pass { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #94a3b8; font-size: 14px; background: none; border: none; }
+
+.btn-login { width: 100%; background: linear-gradient(135deg, #6C3CE1, #9B72EF); border: none; border-radius: 12px; padding: 15px; font-size: 15px; font-weight: 700; color: #fff; cursor: pointer; transition: all 0.3s; font-family: inherit; margin-top: 4px; }
+.btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,60,225,0.25); }
+.btn-login:active { transform: translateY(0); }
+
+.back-link { text-align: center; margin-top: 24px; font-size: 13px; color: #64748b; }
+.back-link a { color: #6C3CE1; text-decoration: none; font-weight: 600; }
+.back-link a:hover { text-decoration: underline; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
 /* Custom Error Modal */
 .custom-modal-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px);
@@ -79,51 +149,66 @@ body{min-height:100vh;display:flex;align-items:center;justify-content:center;fon
   
 </head>
 <body>
-<div class="login-wrap">
-  <div class="login-logo">
-    <img src="../assets/img/logo.png" alt="JAXPAY" class="logo-img">
-    <h1>JAXPAY</h1>
-    <p>School Digital Wallet System</p>
-    <div class="admin-badge"><i class="fas fa-shield-halved"></i> ADMIN PANEL</div>
-  </div>
 
-  <div class="login-card">
-    <h2>Login Administrator</h2>
-    <p>Masukkan kredensial admin Anda</p>
-
-    <?php if ($error): ?>
-    <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 14px;font-size:13px;color:#EF4444;margin-bottom:16px">
-      <i class="fas fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?>
+<div class="login-layout">
+  <!-- Left Side: Hero Image -->
+  <div class="login-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2>SMA Muhammadiyah 9<br>Kota Bekasi</h2>
+      <p>Sistem Manajemen Pembayaran & Dompet Digital Sekolah Terintegrasi.</p>
     </div>
-    <?php endif; ?>
-
-    <form id="adminLoginForm">
-      <div class="form-group">
-        <label class="form-label">Username</label>
-        <div class="input-wrap">
-          <i class="fas fa-user input-icon"></i>
-          <input type="text" name="username" id="usernameInput" class="form-input" placeholder="Username admin" required autocomplete="username">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <div class="input-wrap">
-          <i class="fas fa-lock input-icon"></i>
-          <input type="password" name="password" id="passwordInput" class="form-input" placeholder="••••••••" required autocomplete="current-password">
-          <button type="button" class="toggle-pass" onclick="togglePassword()">
-            <i class="fas fa-eye" id="eyeToggle"></i>
-          </button>
-        </div>
-      </div>
-      <button type="submit" class="btn-login" id="btnLogin">
-        <i class="fas fa-right-to-bracket"></i> Masuk ke Dashboard
-      </button>
-    </form>
-
   </div>
 
-  <div class="back-link">
-    &larr; <a href="../auth/login.php">Kembali ke Login User</a>
+  <!-- Right Side: Login Form -->
+  <div class="login-form-area">
+    <div class="login-wrap">
+      <div class="login-logo">
+        <img src="../assets/img/logo.png" alt="JAXPAY" class="logo-img">
+        <h1>JAXPAY</h1>
+        <p>School Digital Wallet System</p>
+        <div class="admin-badge"><i class="fas fa-shield-halved"></i> ADMIN PANEL</div>
+      </div>
+
+      <div class="login-card">
+        <h2>Login Administrator</h2>
+        <p>Masukkan kredensial admin Anda</p>
+
+        <?php if ($error): ?>
+        <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 14px;font-size:13px;color:#EF4444;margin-bottom:16px">
+          <i class="fas fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?>
+        </div>
+        <?php endif; ?>
+
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <div class="input-wrap">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" name="username" id="usernameInput" class="form-input" placeholder="Username admin" required autocomplete="username">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" name="password" id="passwordInput" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+              <button type="button" class="toggle-pass" onclick="togglePassword()">
+                <i class="fas fa-eye" id="eyeToggle"></i>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn-login" id="btnLogin">
+            <i class="fas fa-right-to-bracket"></i> Masuk ke Dashboard
+          </button>
+        </form>
+
+      </div>
+
+      <div class="back-link">
+        &larr; <a href="../auth/login.php">Kembali ke Login User</a>
+      </div>
+    </div>
   </div>
 </div>
 

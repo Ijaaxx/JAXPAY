@@ -3,6 +3,8 @@
  */
 
 if (typeof Chart !== 'undefined') {
+  const instances = [];
+
   function getThemeColors() {
     const s = getComputedStyle(document.documentElement);
     const theme = document.documentElement.getAttribute('data-theme') || 'dark';
@@ -21,18 +23,14 @@ if (typeof Chart !== 'undefined') {
     chart.options.plugins = chart.options.plugins || {};
     chart.options.plugins.legend = chart.options.plugins.legend || {};
     chart.options.plugins.legend.labels = chart.options.plugins.legend.labels || {};
-    chart.options.plugins.legend.labels.color = c.text;
-    chart.options.plugins.legend.labels.font = { ...chart.options.plugins.legend.labels.font, family: "'Inter', 'Segoe UI', sans-serif", weight: '600' };
+    chart.options.plugins.legend.labels.color = c.muted;
     chart.options.plugins.tooltip = {
       ...(chart.options.plugins.tooltip || {}),
       backgroundColor: c.surface,
       titleColor: c.text,
-      bodyColor: c.text,
+      bodyColor: c.muted,
       borderColor: c.border,
-      borderWidth: 1,
-      displayColors: true,
-      usePointStyle: true,
-      padding: 16
+      borderWidth: 1
     };
     if (chart.options.scales) {
       Object.values(chart.options.scales).forEach(scale => {
@@ -50,7 +48,7 @@ if (typeof Chart !== 'undefined') {
   }
 
   function applyAllCharts() {
-    Object.values(Chart.instances || {}).forEach(applyChartTheme);
+    instances.forEach(applyChartTheme);
   }
 
   Chart.defaults.color = getThemeColors().muted;
@@ -58,16 +56,14 @@ if (typeof Chart !== 'undefined') {
   Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
 
   Chart.defaults.plugins.tooltip = {
-    ...Chart.defaults.plugins.tooltip,
+    ...(Chart.defaults.plugins.tooltip || {}),
     backgroundColor: getThemeColors().surface,
     titleColor: getThemeColors().text,
-    bodyColor: getThemeColors().text,
+    bodyColor: getThemeColors().muted,
     borderColor: getThemeColors().border,
     borderWidth: 1,
-    displayColors: true,
-    usePointStyle: true,
-    cornerRadius: 14,
-    padding: 16,
+    cornerRadius: 10,
+    padding: 12,
     callbacks: {
       label: ctx => {
         const val = ctx.parsed.y ?? ctx.parsed;
@@ -78,13 +74,25 @@ if (typeof Chart !== 'undefined') {
   };
 
   const NativeChart = Chart;
-  const originalUpdate = NativeChart.prototype.update;
-  NativeChart.prototype.update = function(...args) {
-    const c = getThemeColors();
-    NativeChart.defaults.color = c.muted;
-    NativeChart.defaults.borderColor = c.border;
-    return originalUpdate.apply(this, args);
-  };
+  class WrappedChart extends NativeChart {
+    constructor(...args) {
+      super(...args);
+      instances.push(this);
+    }
+    destroy() {
+      const idx = instances.indexOf(this);
+      if (idx !== -1) instances.splice(idx, 1);
+      super.destroy();
+    }
+    update(...args) {
+      const c = getThemeColors();
+      WrappedChart.defaults.color = c.muted;
+      WrappedChart.defaults.borderColor = c.border;
+      return super.update(...args);
+    }
+  }
+
+  window.Chart = WrappedChart;
 
   window.JaxpayCharts = { applyChartTheme, applyAllCharts, getThemeColors };
   window.addEventListener('jaxpay:theme-change', () => requestAnimationFrame(applyAllCharts));
