@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAXPAY Admin - Dashboard</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="../assets/css/admin.css">
-  <link rel="stylesheet" href="../assets/css/theme.css">
-  <script src="../assets/js/theme.js"></script>
-</head>
-<body>
 <?php
 session_start();
 require_once '../koneksi.php';
-if (!isset($_SESSION['admin_id'])) { header('Location: index.php'); exit; }
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: index.php');
+    exit;
+}
 
 // ── Stats ──
 $total_users     = $koneksi->query("SELECT COUNT(*) as c FROM users")->fetch_assoc()['c'];
@@ -38,6 +27,21 @@ for ($i = 6; $i >= 0; $i--) {
 }
 
 // ── Role Distribution ──
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAXPAY Admin - Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="../assets/css/admin.css">
+<link rel="stylesheet" href="../assets/css/theme.css">
+<script src="../assets/js/theme.js"></script>
+</head>
+<body>
 $role_data = [];
 $roles = ['student','teacher','parent','merchant'];
 foreach ($roles as $r) {
