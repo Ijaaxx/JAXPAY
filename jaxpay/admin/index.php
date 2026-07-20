@@ -27,7 +27,7 @@ body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color
 
 .login-hero {
   flex: 1;
-  background-image: url('../assets/img/login-school.jpg');
+  background-image: url('../assets/img/BG_WEBSITE%20ADMIN.png');
   background-size: cover;
   background-position: center;
   position: relative;
