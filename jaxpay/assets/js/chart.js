@@ -55,27 +55,30 @@ if (typeof Chart !== 'undefined') {
     instances.forEach(applyChartTheme);
   }
 
-  Chart.defaults.color = getThemeColors().muted;
-  Chart.defaults.borderColor = getThemeColors().border;
-  Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+  try {
+    Chart.defaults.color = getThemeColors().muted;
+    Chart.defaults.borderColor = getThemeColors().border;
+    Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
 
-  Chart.defaults.plugins.tooltip = {
-    ...(Chart.defaults.plugins.tooltip || {}),
-    backgroundColor: getThemeColors().surface,
-    titleColor: getThemeColors().text,
-    bodyColor: getThemeColors().muted,
-    borderColor: getThemeColors().border,
-    borderWidth: 1,
-    cornerRadius: 10,
-    padding: 12,
-    callbacks: {
-      label: ctx => {
+    if (Chart.defaults.plugins && Chart.defaults.plugins.tooltip) {
+      const tooltip = Chart.defaults.plugins.tooltip;
+      tooltip.backgroundColor = getThemeColors().surface;
+      tooltip.titleColor = getThemeColors().text;
+      tooltip.bodyColor = getThemeColors().muted;
+      tooltip.borderColor = getThemeColors().border;
+      tooltip.borderWidth = 1;
+      tooltip.cornerRadius = 10;
+      tooltip.padding = 12;
+      tooltip.callbacks = tooltip.callbacks || {};
+      tooltip.callbacks.label = ctx => {
         const val = ctx.parsed.y ?? ctx.parsed;
         if (typeof val === 'number' && val > 1000) return ' Rp ' + val.toLocaleString('id-ID');
         return ' ' + val;
-      }
+      };
     }
-  };
+  } catch (e) {
+    console.warn("Failed to configure Chart.js defaults: ", e);
+  }
 
   const NativeChart = Chart;
   class WrappedChart extends NativeChart {
