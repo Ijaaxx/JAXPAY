@@ -160,12 +160,34 @@ foreach (['student','teacher','parent','merchant'] as $r) {
 <script>
 const dailyCtx = document.getElementById('dailyChart').getContext('2d');
 new Chart(dailyCtx, {
-  type: 'bar',
+  type: 'line',
   data: {
     labels: <?= json_encode($daily_labels) ?>,
     datasets: [
-      { label: 'Pembayaran (Rp)', data: <?= json_encode($daily_tx) ?>, backgroundColor: 'rgba(108,60,225,0.6)', borderColor: '#6C3CE1', borderWidth: 2, borderRadius: 6 },
-      { label: 'Top Up (Rp)', data: <?= json_encode($daily_topup) ?>, backgroundColor: 'rgba(16,185,129,0.5)', borderColor: '#10B981', borderWidth: 2, borderRadius: 6 }
+      {
+        label: 'Pembayaran (Rp)',
+        data: <?= json_encode($daily_tx) ?>,
+        borderColor: '#6C3CE1',
+        backgroundColor: 'rgba(108,60,225,0.1)',
+        tension: 0.4,
+        fill: true,
+        pointRadius: 4,
+        pointBackgroundColor: '#6C3CE1',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2
+      },
+      {
+        label: 'Top Up (Rp)',
+        data: <?= json_encode($daily_topup) ?>,
+        borderColor: '#10B981',
+        backgroundColor: 'rgba(16,185,129,0.08)',
+        tension: 0.4,
+        fill: true,
+        pointRadius: 4,
+        pointBackgroundColor: '#10B981',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2
+      }
     ]
   },
   options: {
