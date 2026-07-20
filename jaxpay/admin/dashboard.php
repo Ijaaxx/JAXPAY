@@ -322,35 +322,75 @@ const roleChart = new Chart(roleCtx, {
   }
 });
 
+function refreshDashboardCharts() {
+  if (window.JaxpayCharts) {
+    window.JaxpayCharts.applyChartTheme(txChart);
+    window.JaxpayCharts.applyChartTheme(roleChart);
+  }
+  if (typeof txChart !== 'undefined') {
+    txChart.resize();
+    txChart.update('none');
+  }
+  if (typeof roleChart !== 'undefined') {
+    roleChart.resize();
+    roleChart.update('none');
+  }
+}
+
 function loadDashboardCharts() {
   fetch('ajax_charts.php')
     .then((res) => res.json())
     .then((data) => {
-      if (!data.success) return;
+      if (!data.success) {
+        console.warn('Dashboard chart data not loaded:', data.message || data);
+        return;
+      }
       txChart.data.labels = data.labels;
       txChart.data.datasets[0].data = data.chart_data;
       txChart.data.datasets[1].data = data.chart_topup;
-      txChart.update();
-
       roleChart.data.datasets[0].data = data.role_data;
-      roleChart.update();
+      refreshDashboardCharts();
     })
     .catch((err) => {
       console.error('Dashboard chart load failed:', err);
     });
 }
 
+function watchDashboardChartResize() {
+  const containers = document.querySelectorAll('.chart-container');
+  if (!window.ResizeObserver || !containers.length) return;
+
+  const observer = new ResizeObserver(() => {
+    if (typeof txChart !== 'undefined') txChart.resize();
+    if (typeof roleChart !== 'undefined') roleChart.resize();
+  });
+
+  containers.forEach((container) => observer.observe(container));
+}
+
 function initDashboardCharts() {
-  if (document.readyState === 'complete') {
+  const boot = () => {
+    refreshDashboardCharts();
     loadDashboardCharts();
-    if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
+    watchDashboardChartResize();
+  };
+
+  if (document.readyState !== 'loading') {
+    boot();
   } else {
-    window.addEventListener('load', () => {
-      loadDashboardCharts();
-      if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
-    });
+    window.addEventListener('DOMContentLoaded', boot);
   }
 }
+
+window.addEventListener('resize', () => {
+  if (typeof txChart !== 'undefined') txChart.resize();
+  if (typeof roleChart !== 'undefined') roleChart.resize();
+});
+
+window.addEventListener('orientationchange', () => {
+  if (typeof txChart !== 'undefined') txChart.resize();
+  if (typeof roleChart !== 'undefined') roleChart.resize();
+});
 
 initDashboardCharts();
 setInterval(loadDashboardCharts, 60000);
