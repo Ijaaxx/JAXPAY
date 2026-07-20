@@ -52,6 +52,28 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
 <link rel="stylesheet" href="../assets/css/admin.css">
   <link rel="stylesheet" href="../assets/css/theme.css">
   <script src="../assets/js/theme.js"></script>
+  <style>
+    html[data-theme="light"] { color-scheme: light; }
+    body { background: #f6f8fc !important; color: #0f172a !important; }
+    .admin-sidebar, .admin-topbar, .admin-card, .stat-card, .chart-container, .table-wrapper, table, .activity-item, .admin-main {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border-color: rgba(15,23,42,0.12) !important;
+      box-shadow: 0 16px 42px rgba(15,23,42,0.08) !important;
+    }
+    .admin-sidebar { background: #ffffff !important; }
+    .admin-topbar { background: #ffffff !important; }
+    .topbar-btn, .theme-toggle-admin, .badge, .card, .tx-item, .notif-item, .user-card, .merchant-card, .info-item { background: rgba(255,255,255,0.88) !important; color: #0f172a !important; border-color: rgba(15,23,42,0.12) !important; }
+    th, td { color: #1f2937 !important; }
+    thead tr { background: rgba(226,232,240,0.6) !important; }
+    tbody tr { background: rgba(248,250,252,0.8) !important; }
+    tbody tr:nth-child(even) { background: rgba(241,245,249,0.9) !important; }
+    tbody tr:hover { background: rgba(226,232,240,0.8) !important; }
+    .page-title, .topbar-title, .sidebar-brand .brand-name, .sidebar-brand .brand-sub, .nav-link, .nav-link.active, .nav-link:hover, .admin-card-header h3, .stat-label, .stat-change, .activity-text, .activity-time {
+      color: #0f172a !important;
+    }
+    .badge { color: #0f172a !important; background: rgba(59,130,246,0.12) !important; }
+  </style>
 </head>
 <body>
 
