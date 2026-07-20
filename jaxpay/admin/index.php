@@ -27,11 +27,21 @@ body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color
 
 .login-hero {
   flex: 1;
-  background-image: url('../assets/img/sekolah.jpg');
+  background-image: url('../assets/img/login-school.jpg');
   background-size: cover;
   background-position: center;
   position: relative;
   display: none; /* hidden on mobile */
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 22px;
+  object-fit: cover;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+  margin-bottom: 24px;
+  display: block;
 }
 
 @media(min-width: 900px) {
@@ -155,6 +165,7 @@ body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color
   <div class="login-hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <img src="../assets/img/login-school.jpg" alt="SMA Muhammadiyah 9 Kota Bekasi" class="hero-image">
       <h2>SMA Muhammadiyah 9<br>Kota Bekasi</h2>
       <p>Sistem Manajemen Pembayaran & Dompet Digital Sekolah Terintegrasi.</p>
     </div>
