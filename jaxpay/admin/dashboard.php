@@ -69,9 +69,11 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
     tbody tr { background: rgba(248,250,252,0.8) !important; }
     tbody tr:nth-child(even) { background: rgba(241,245,249,0.9) !important; }
     tbody tr:hover { background: rgba(226,232,240,0.8) !important; }
-    .page-title, .topbar-title, .sidebar-brand .brand-name, .sidebar-brand .brand-sub, .nav-link, .nav-link.active, .nav-link:hover, .admin-card-header h3, .stat-label, .stat-change, .activity-text, .activity-time {
+    .page-title, .topbar-title, .topbar-breadcrumb, .sidebar-brand .brand-name, .sidebar-brand .brand-sub, .sidebar-section-label, .nav-link, .nav-link.active, .nav-link:hover, .admin-card-header h3, .stat-value, .stat-label, .activity-text, .activity-time, .sidebar-admin-info h5, .sidebar-admin-info p {
       color: #0f172a !important;
     }
+    .nav-link { color: rgba(15,23,42,0.85) !important; }
+    .nav-link:hover, .nav-link.active { color: #0f172a !important; }
     .badge { color: #0f172a !important; background: rgba(59,130,246,0.12) !important; }
   </style>
 </head>
@@ -247,31 +249,33 @@ const roleCtx = document.getElementById('roleChart').getContext('2d');
 const txChart = new Chart(txCtx, {
   type: 'line',
   data: {
-    labels: [],
+    labels: <?= json_encode($chart_labels) ?>,
     datasets: [
       {
         label: 'Pembayaran (Rp)',
-        data: [],
+        data: <?= json_encode($chart_data) ?>,
         borderColor: '#6C3CE1',
-        backgroundColor: 'rgba(108,60,225,0.12)',
+        backgroundColor: 'rgba(108,60,225,0.18)',
         tension: 0.4,
         fill: true,
-        pointRadius: 5,
+        pointRadius: 6,
         pointBackgroundColor: '#6C3CE1',
         pointBorderColor: '#ffffff',
-        pointBorderWidth: 2
+        pointBorderWidth: 2,
+        borderWidth: 3
       },
       {
         label: 'Top Up Approved (Rp)',
-        data: [],
+        data: <?= json_encode($chart_topup) ?>,
         borderColor: '#10B981',
-        backgroundColor: 'rgba(16,185,129,0.12)',
+        backgroundColor: 'rgba(16,185,129,0.18)',
         tension: 0.4,
         fill: true,
-        pointRadius: 5,
+        pointRadius: 6,
         pointBackgroundColor: '#10B981',
         pointBorderColor: '#ffffff',
-        pointBorderWidth: 2
+        pointBorderWidth: 2,
+        borderWidth: 3
       }
     ]
   },
@@ -300,7 +304,7 @@ const roleChart = new Chart(roleCtx, {
   data: {
     labels: ['Student', 'Teacher', 'Parent', 'Merchant'],
     datasets: [{
-      data: [],
+      data: <?= json_encode($role_data) ?>,
       backgroundColor: ['rgba(108,60,225,0.9)','rgba(0,212,255,0.9)','rgba(16,185,129,0.9)','rgba(245,158,11,0.9)'],
       borderColor: '#ffffff',
       borderWidth: 3,
@@ -336,10 +340,20 @@ function loadDashboardCharts() {
     });
 }
 
-loadDashboardCharts();
-setInterval(loadDashboardCharts, 60000);
+function initDashboardCharts() {
+  if (document.readyState === 'complete') {
+    loadDashboardCharts();
+    if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
+  } else {
+    window.addEventListener('load', () => {
+      loadDashboardCharts();
+      if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
+    });
+  }
+}
 
-if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
+initDashboardCharts();
+setInterval(loadDashboardCharts, 60000);
 </script>
 
 
