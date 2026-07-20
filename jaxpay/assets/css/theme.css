@@ -179,7 +179,8 @@ body {
   background: var(--grad-outer) !important;
 }
 
-.phone-frame {
+.phone-frame,
+.phone-container {
   background: var(--bg-phone) !important;
   box-shadow: var(--phone-shadow) !important;
 }
@@ -209,6 +210,7 @@ body {
 /* Text */
 body,
 .phone-frame,
+.phone-container,
 h1,
 h2,
 h3,
@@ -1692,4 +1694,31 @@ html[data-theme="light"] tbody tr {
 
 html[data-theme="light"] tbody tr:hover {
   background: rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Auth / Login / OTP overrides */
+.login-card h2,
+.otp-header h2 {
+  color: var(--text-primary) !important;
+}
+
+.back-btn {
+  color: var(--text-secondary) !important;
+}
+.back-btn:hover {
+  color: var(--text-primary) !important;
+}
+
+.admin-link a {
+  color: var(--primary) !important;
+}
+
+.otp-input {
+  color: var(--text-primary) !important;
+  background: var(--bg-input) !important;
+  border-color: var(--border) !important;
+}
+.otp-input.filled {
+  border-color: var(--accent) !important;
+  background: rgba(0, 212, 255, 0.1) !important;
 }

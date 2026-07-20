@@ -84,7 +84,7 @@ if (!$email) { header('Location: login.php'); exit; }
   @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
   @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
 </style>
-  <link rel="stylesheet" href="../assets/css/theme.css?v=4">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=5">
   <script src="../assets/js/theme.js?v=3" defer></script>
   <script src="../assets/js/otp.js" defer></script>
 </head>

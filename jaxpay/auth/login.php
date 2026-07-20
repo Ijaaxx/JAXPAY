@@ -325,7 +325,7 @@
   }
   .demo-email:hover { text-decoration: underline; }
 </style>
-  <link rel="stylesheet" href="../assets/css/theme.css?v=4">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=5">
   <script src="../assets/js/theme.js?v=3" defer></script>
   <script src="../assets/js/login.js" defer></script>
 </head>
