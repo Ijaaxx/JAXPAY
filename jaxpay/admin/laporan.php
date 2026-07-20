@@ -90,7 +90,7 @@ foreach (['student','teacher','parent','merchant'] as $r) {
       <h3><i class="fas fa-chart-area" style="color:var(--primary-light)"></i> Grafik Harian — <?= date('F Y', mktime(0,0,0,$mon,1,$year)) ?></h3>
     </div>
     <div class="admin-card-body padded">
-      <div style="height:260px"><canvas id="dailyChart"></canvas></div>
+      <div style="position:relative;height:260px;width:100%"><canvas id="dailyChart"></canvas></div>
     </div>
   </div>
 
@@ -173,7 +173,7 @@ new Chart(dailyCtx, {
     plugins: { legend: { labels: { color: '#0f172a', font:{size:12} } } },
     scales: {
       x: { ticks: { color: 'rgba(15,23,42,0.6)' }, grid: { color: 'rgba(15,23,42,0.08)' } },
-      y: { ticks: { color: 'rgba(15,23,42,0.6)', callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
+      y: { ticks: { color: 'rgba(15,23,42,0.6)', callback: v => 'Rp ' + (Number(v) || 0).toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
     }
   }
 });
