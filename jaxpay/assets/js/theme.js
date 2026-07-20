@@ -67,7 +67,7 @@ const ThemeManager = (function () {
     apply(next);
 
     // Clean up all existing toasts to prevent stacking (Anti-freeze & Anti-duplicate)
-    document.querySelectorAll(".jaxpay-custom-toast").forEach(el => {
+    document.querySelectorAll(".jaxpay-custom-toast").forEach((el) => {
       if (el.hideTimeout) clearTimeout(el.hideTimeout);
       if (el.removeTimeout) clearTimeout(el.removeTimeout);
       el.remove();
@@ -76,12 +76,12 @@ const ThemeManager = (function () {
     // Create custom toast
     const toast = document.createElement("div");
     toast.className = "jaxpay-custom-toast";
-    
+
     // Add icon and text
     const iconClass = next === LIGHT ? "fas fa-sun" : "fas fa-moon";
     const text = next === LIGHT ? "Mode Terang Aktif" : "Mode Gelap Aktif";
     toast.innerHTML = `<div class="toast-icon"><i class="${iconClass}"></i></div><div class="toast-text">${text}</div>`;
-    
+
     // Append to DOM
     if (document.body) {
       document.body.appendChild(toast);
@@ -114,6 +114,24 @@ const ThemeManager = (function () {
 window.ThemeManager = ThemeManager;
 ThemeManager.init();
 
+function insertAppLogo() {
+  const path = window.location.pathname || "";
+  if (!path.includes("/halaman/")) return;
+  const phoneContent = document.querySelector(".phone-content");
+  if (!phoneContent || document.querySelector(".app-logo-row")) return;
+
+  const logoRow = document.createElement("div");
+  logoRow.className = "app-logo-row animate-up";
+  logoRow.innerHTML = `
+    <img src="../assets/img/Logo.png" alt="JAXPAY" class="app-logo">
+    <div class="app-logo-text">
+      <div class="app-logo-title">JAXPAY</div>
+      <div class="app-logo-sub">School Digital Wallet</div>
+    </div>
+  `;
+  phoneContent.insertBefore(logoRow, phoneContent.firstChild);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   try {
     const path = window.location.pathname || "";
@@ -142,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   ThemeManager.apply(ThemeManager.getSaved());
+  insertAppLogo();
 });
 
 document.addEventListener("keydown", function (e) {

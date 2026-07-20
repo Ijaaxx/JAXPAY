@@ -140,7 +140,7 @@ body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color
   <div class="login-form-area">
     <div class="login-wrap">
       <div class="login-logo">
-        <img src="../assets/img/logo.png" alt="JAXPAY" class="logo-img">
+        <img src="../assets/img/Logo.png" alt="JAXPAY" class="logo-img">
         <h1>JAXPAY</h1>
         <p>School Digital Wallet System</p>
         <div class="admin-badge"><i class="fas fa-shield-halved"></i> ADMIN PANEL</div>

@@ -20,7 +20,7 @@
   splash.innerHTML = `
     <div class="splash-inner">
       <div class="splash-logo">
-        <img src="../assets/img/logo.png" alt="JAXPAY" class="splash-img">
+        <img src="../assets/img/Logo.png" alt="JAXPAY" class="splash-img">
         <div class="splash-name">JAXPAY</div>
         <div class="splash-tagline">School Digital Wallet</div>
       </div>

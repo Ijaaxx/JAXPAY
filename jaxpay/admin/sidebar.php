@@ -13,7 +13,7 @@ $admin_inisial = strtoupper(substr($admin_name, 0, 1));
 ?>
 <aside class="admin-sidebar" id="adminSidebar">
   <div class="sidebar-brand">
-    <img src="../assets/img/logo.png" alt="JAXPAY" class="brand-logo">
+    <img src="../assets/img/Logo.png" alt="JAXPAY" class="brand-logo">
     <div>
       <div class="brand-name">JAXPAY</div>
       <div class="brand-sub">Admin Dashboard</div>

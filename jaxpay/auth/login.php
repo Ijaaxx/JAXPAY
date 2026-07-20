@@ -349,7 +349,7 @@
 
   <div class="login-content">
     <div class="logo-area">
-      <img src="../assets/img/logo.png" alt="JAXPAY" class="logo-img">
+      <img src="../assets/img/Logo.png" alt="JAXPAY" class="logo-img">
       <h1>JAXPAY</h1>
       <p>School Digital Wallet</p>
     </div>

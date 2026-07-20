@@ -23,7 +23,7 @@ if (isset($koneksi)) {
     <button class="topbar-btn" id="sidebarToggle" onclick="toggleSidebar()" style="display:none">
       <i class="fas fa-bars"></i>
     </button>
-    <img src="../assets/img/logo.png" alt="JAXPAY" class="topbar-logo" />
+    <img src="../assets/img/Logo.png" alt="JAXPAY" class="topbar-logo" />
     <div>
       <div class="topbar-title"><?= $title_data[0] ?></div>
       <div class="topbar-breadcrumb">JAXPAY › <?= $title_data[0] ?></div>
