@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAXPAY Admin - Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <script src="../assets/js/theme.js"></script>
+</head>
+<body>
 <?php
 session_start();
 require_once '../koneksi.php';
@@ -39,45 +53,6 @@ $activity = $koneksi->query("SELECT * FROM activity_logs ORDER BY created_at DES
 // ── Recent Top Up Pending ──
 $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN users u ON tp.user_id=u.id WHERE tp.status='pending' ORDER BY tp.created_at DESC LIMIT 5");
 ?>
-
-<!DOCTYPE html>
-<html lang="id" data-theme="light">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAXPAY Admin - Dashboard</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="../assets/css/admin.css">
-  <link rel="stylesheet" href="../assets/css/theme.css">
-  <script src="../assets/js/theme.js"></script>
-  <style>
-    html[data-theme="light"] { color-scheme: light; }
-    body { background: #f6f8fc !important; color: #0f172a !important; }
-    .admin-sidebar, .admin-topbar, .admin-card, .stat-card, .chart-container, .table-wrapper, table, .activity-item, .admin-main {
-      background: #ffffff !important;
-      color: #0f172a !important;
-      border-color: rgba(15,23,42,0.12) !important;
-      box-shadow: 0 16px 42px rgba(15,23,42,0.08) !important;
-    }
-    .admin-sidebar { background: #ffffff !important; }
-    .admin-topbar { background: #ffffff !important; }
-    .topbar-btn, .theme-toggle-admin, .badge, .card, .tx-item, .notif-item, .user-card, .merchant-card, .info-item { background: rgba(255,255,255,0.88) !important; color: #0f172a !important; border-color: rgba(15,23,42,0.12) !important; }
-    th, td { color: #1f2937 !important; }
-    thead tr { background: rgba(226,232,240,0.6) !important; }
-    tbody tr { background: rgba(248,250,252,0.8) !important; }
-    tbody tr:nth-child(even) { background: rgba(241,245,249,0.9) !important; }
-    tbody tr:hover { background: rgba(226,232,240,0.8) !important; }
-    .page-title, .topbar-title, .topbar-breadcrumb, .sidebar-brand .brand-name, .sidebar-brand .brand-sub, .sidebar-section-label, .nav-link, .nav-link.active, .nav-link:hover, .admin-card-header h3, .stat-value, .stat-label, .activity-text, .activity-time, .sidebar-admin-info h5, .sidebar-admin-info p {
-      color: #0f172a !important;
-    }
-    .nav-link { color: rgba(15,23,42,0.85) !important; }
-    .nav-link:hover, .nav-link.active { color: #0f172a !important; }
-    .badge { color: #0f172a !important; background: rgba(59,130,246,0.12) !important; }
-  </style>
-</head>
-<body>
 
 <?php include 'sidebar.php'; ?>
 <?php include 'navbar.php'; ?>
@@ -162,7 +137,7 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
         <table>
           <thead>
             <tr>
-              <th>User</th><th>Tipe</th><th>Jumlah</th><th>Waktu</th><th>Status</th>
+              <th>Kode</th><th>User</th><th>Tipe</th><th>Jumlah</th><th>Waktu</th><th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -172,6 +147,7 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
             $is_pos = in_array($tx['tipe'], ['topup','transfer_masuk']);
           ?>
           <tr>
+            <td><code style="font-size:11px;color:var(--accent)"><?= $tx['kode_transaksi'] ?></code></td>
             <td><?= htmlspecialchars($tx['nama']) ?></td>
             <td><span class="badge badge-<?= $is_pos?'success':'warning' ?>"><?= $tipe_labels[$tx['tipe']]??$tx['tipe'] ?></span></td>
             <td style="font-weight:700;color:<?= $is_pos?'#10B981':'#EF4444' ?>">
@@ -243,10 +219,9 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
 <?php include 'footer.php'; ?>
 
 <script>
+// Transaction Chart
 const txCtx = document.getElementById('txChart').getContext('2d');
-const roleCtx = document.getElementById('roleChart').getContext('2d');
-
-const txChart = new Chart(txCtx, {
+new Chart(txCtx, {
   type: 'line',
   data: {
     labels: <?= json_encode($chart_labels) ?>,
@@ -254,146 +229,46 @@ const txChart = new Chart(txCtx, {
       {
         label: 'Pembayaran (Rp)',
         data: <?= json_encode($chart_data) ?>,
-        borderColor: '#6C3CE1',
-        backgroundColor: 'rgba(108,60,225,0.18)',
-        tension: 0.4,
-        fill: true,
-        pointRadius: 6,
-        pointBackgroundColor: '#6C3CE1',
-        pointBorderColor: '#ffffff',
-        pointBorderWidth: 2,
-        borderWidth: 3
+        borderColor: '#6C3CE1', backgroundColor: 'rgba(108,60,225,0.1)',
+        tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#6C3CE1', pointBorderColor: '#fff', pointBorderWidth: 2
       },
       {
         label: 'Top Up Approved (Rp)',
         data: <?= json_encode($chart_topup) ?>,
-        borderColor: '#10B981',
-        backgroundColor: 'rgba(16,185,129,0.18)',
-        tension: 0.4,
-        fill: true,
-        pointRadius: 6,
-        pointBackgroundColor: '#10B981',
-        pointBorderColor: '#ffffff',
-        pointBorderWidth: 2,
-        borderWidth: 3
+        borderColor: '#10B981', backgroundColor: 'rgba(16,185,129,0.08)',
+        tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#10B981', pointBorderColor: '#fff', pointBorderWidth: 2
       }
     ]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { labels: { color: '#334155', font: { size: 12 } } },
-      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderWidth: 1 }
-    },
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#E8E8F0', font: { size: 12 } } } },
     scales: {
-      x: {
-        ticks: { color: '#475569', font: { size: 11 } },
-        grid: { color: 'rgba(15,23,42,0.06)' }
-      },
-      y: {
-        ticks: { color: '#475569', font: { size: 11 }, callback: value => 'Rp ' + value.toLocaleString('id-ID') },
-        grid: { color: 'rgba(15,23,42,0.06)' }
-      }
+      x: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11} }, grid: { color: 'rgba(255,255,255,0.05)' } },
+      y: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11}, callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(255,255,255,0.05)' } }
     }
   }
 });
 
-const roleChart = new Chart(roleCtx, {
+// Role Chart
+const roleCtx = document.getElementById('roleChart').getContext('2d');
+new Chart(roleCtx, {
   type: 'doughnut',
   data: {
     labels: ['Student', 'Teacher', 'Parent', 'Merchant'],
     datasets: [{
       data: <?= json_encode($role_data) ?>,
-      backgroundColor: ['rgba(108,60,225,0.9)','rgba(0,212,255,0.9)','rgba(16,185,129,0.9)','rgba(245,158,11,0.9)'],
-      borderColor: '#ffffff',
-      borderWidth: 3,
-      hoverOffset: 8
+      backgroundColor: ['rgba(108,60,225,0.8)','rgba(0,212,255,0.8)','rgba(16,185,129,0.8)','rgba(245,158,11,0.8)'],
+      borderColor: '#16162A', borderWidth: 3, hoverOffset: 8
     }]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    cutout: '65%',
-    plugins: {
-      legend: { position: 'bottom', labels: { color: '#334155', font: { size: 12 }, padding: 14 } },
-      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderWidth: 1 }
-    }
+    responsive: true, maintainAspectRatio: false, cutout: '65%',
+    plugins: { legend: { position: 'bottom', labels: { color: '#E8E8F0', font:{size:12}, padding: 14 } } }
   }
 });
 
-function refreshDashboardCharts() {
-  if (window.JaxpayCharts) {
-    window.JaxpayCharts.applyChartTheme(txChart);
-    window.JaxpayCharts.applyChartTheme(roleChart);
-  }
-  if (typeof txChart !== 'undefined') {
-    txChart.resize();
-    txChart.update('none');
-  }
-  if (typeof roleChart !== 'undefined') {
-    roleChart.resize();
-    roleChart.update('none');
-  }
-}
-
-function loadDashboardCharts() {
-  fetch('ajax_charts.php')
-    .then((res) => res.json())
-    .then((data) => {
-      if (!data.success) {
-        console.warn('Dashboard chart data not loaded:', data.message || data);
-        return;
-      }
-      txChart.data.labels = data.labels;
-      txChart.data.datasets[0].data = data.chart_data;
-      txChart.data.datasets[1].data = data.chart_topup;
-      roleChart.data.datasets[0].data = data.role_data;
-      refreshDashboardCharts();
-    })
-    .catch((err) => {
-      console.error('Dashboard chart load failed:', err);
-    });
-}
-
-function watchDashboardChartResize() {
-  const containers = document.querySelectorAll('.chart-container');
-  if (!window.ResizeObserver || !containers.length) return;
-
-  const observer = new ResizeObserver(() => {
-    if (typeof txChart !== 'undefined') txChart.resize();
-    if (typeof roleChart !== 'undefined') roleChart.resize();
-  });
-
-  containers.forEach((container) => observer.observe(container));
-}
-
-function initDashboardCharts() {
-  const boot = () => {
-    refreshDashboardCharts();
-    loadDashboardCharts();
-    watchDashboardChartResize();
-  };
-
-  if (document.readyState !== 'loading') {
-    boot();
-  } else {
-    window.addEventListener('DOMContentLoaded', boot);
-  }
-}
-
-window.addEventListener('resize', () => {
-  if (typeof txChart !== 'undefined') txChart.resize();
-  if (typeof roleChart !== 'undefined') roleChart.resize();
-});
-
-window.addEventListener('orientationchange', () => {
-  if (typeof txChart !== 'undefined') txChart.resize();
-  if (typeof roleChart !== 'undefined') roleChart.resize();
-});
-
-initDashboardCharts();
-setInterval(loadDashboardCharts, 60000);
+if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
 </script>
 
 
