@@ -56,6 +56,33 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
 </head>
 <body>
 
+<div id="js-debug-console" style="background:#fef2f2; border: 2px solid #ef4444; color:#b91c1c; padding:15px; margin:15px; border-radius:10px; font-family:monospace; display:none; z-index:99999; position:relative;">
+  <h3 style="margin-bottom:5px;">⚠️ JavaScript Debug Console</h3>
+  <ul id="js-debug-list" style="margin-top:10px; padding-left:20px; list-style-type:disc;"></ul>
+</div>
+<script>
+window.addEventListener('error', function(e) {
+  var consoleDiv = document.getElementById('js-debug-console');
+  var list = document.getElementById('js-debug-list');
+  if (consoleDiv && list) {
+    consoleDiv.style.display = 'block';
+    var li = document.createElement('li');
+    li.textContent = e.message + ' at ' + e.filename + ':' + e.lineno + ':' + e.colno;
+    list.appendChild(li);
+  }
+});
+window.addEventListener('unhandledrejection', function(e) {
+  var consoleDiv = document.getElementById('js-debug-console');
+  var list = document.getElementById('js-debug-list');
+  if (consoleDiv && list) {
+    consoleDiv.style.display = 'block';
+    var li = document.createElement('li');
+    li.textContent = 'Unhandled Rejection: ' + e.reason;
+    list.appendChild(li);
+  }
+});
+</script>
+
 <?php include 'sidebar.php'; ?>
 <?php include 'navbar.php'; ?>
 
