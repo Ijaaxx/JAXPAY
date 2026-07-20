@@ -1,3 +1,10 @@
+<?php
+session_start();
+require_once '../koneksi.php';
+if (!isset($_SESSION['admin_id'])) { header('Location: index.php'); exit; }
+
+// ── Stats ──
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -12,12 +19,6 @@
   <script src="../assets/js/theme.js"></script>
 </head>
 <body>
-<?php
-session_start();
-require_once '../koneksi.php';
-if (!isset($_SESSION['admin_id'])) { header('Location: index.php'); exit; }
-
-// ── Stats ──
 $total_users     = $koneksi->query("SELECT COUNT(*) as c FROM users")->fetch_assoc()['c'];
 $total_merchant  = $koneksi->query("SELECT COUNT(*) as c FROM merchant WHERE is_active=1")->fetch_assoc()['c'];
 $total_transaksi = $koneksi->query("SELECT COUNT(*) as c FROM transaksi WHERE DATE(created_at)=CURDATE()")->fetch_assoc()['c'];
