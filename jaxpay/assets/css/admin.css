@@ -802,9 +802,8 @@ select.form-control option {
   box-shadow: inset 0 0 0 1px rgba(108, 60, 225, 0.04);
 }
 .chart-container canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
 }
 .chart-loading {
   position: absolute;

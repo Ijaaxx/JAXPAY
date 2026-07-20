@@ -20,7 +20,7 @@ foreach (['pending','approved','rejected'] as $s) {
 <title>JAXPAY Admin - Konfirmasi Top Up</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="../assets/css/admin.css?v=6">
+<link rel="stylesheet" href="../assets/css/admin.css?v=7">
 <style>
 .topup-tabs { display:flex; gap:8px; margin-bottom:20px; }
 .topup-tab {
@@ -33,7 +33,7 @@ foreach (['pending','approved','rejected'] as $s) {
 .proof-thumb:hover { transform:scale(1.08); border-color:var(--primary-light); }
 .no-proof { width:60px; height:60px; border-radius:8px; background:var(--surface-3); display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:18px; }
 </style>
-  <link rel="stylesheet" href="../assets/css/theme.css?v=6">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=7">
 
 </head>
 <body>
