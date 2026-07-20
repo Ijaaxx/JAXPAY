@@ -103,6 +103,15 @@
 
   --nav-bg: rgba(255, 255, 255, 0.96);
   --status-color: #1a0050;
+  --bg: #f6f8fc;
+  --dark: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f1f5fb;
+  --surface-3: #e7edf7;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.18);
 
   --grad-outer:
     radial-gradient(
@@ -1304,7 +1313,9 @@ footer {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   z-index: 99999;
   opacity: 0;
   pointer-events: none;
@@ -1339,7 +1350,9 @@ footer {
 [data-theme="light"] .jaxpay-custom-toast {
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(108, 60, 225, 0.15);
-  box-shadow: 0 10px 30px rgba(108, 60, 225, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 10px 30px rgba(108, 60, 225, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 [data-theme="light"] .jaxpay-custom-toast .toast-icon {
   background: rgba(108, 60, 225, 0.1);
@@ -1354,22 +1367,62 @@ footer {
    ============================================= */
 /* Force all elements inside Admin components to inherit text color 
    instead of using mobile white text default */
-.admin-sidebar, .admin-topbar, .admin-main, .modal, .admin-body {
+.admin-sidebar,
+.admin-topbar,
+.admin-main,
+.modal,
+.admin-body {
   color: var(--admin-text) !important;
 }
 
-.admin-sidebar h1, .admin-sidebar h2, .admin-sidebar h3, .admin-sidebar h4, .admin-sidebar h5,
-.admin-sidebar p, .admin-sidebar span, .admin-sidebar div, .admin-sidebar label,
-.admin-topbar h1, .admin-topbar h2, .admin-topbar h3, .admin-topbar h4, .admin-topbar h5,
-.admin-topbar p, .admin-topbar span, .admin-topbar div, .admin-topbar label,
-.admin-main h1, .admin-main h2, .admin-main h3, .admin-main h4, .admin-main h5,
-.admin-main p, .admin-main span, .admin-main div, .admin-main label,
-.modal h1, .modal h2, .modal h3, .modal h4, .modal h5,
-.modal p, .modal span, .modal div, .modal label {
+.admin-sidebar h1,
+.admin-sidebar h2,
+.admin-sidebar h3,
+.admin-sidebar h4,
+.admin-sidebar h5,
+.admin-sidebar p,
+.admin-sidebar span,
+.admin-sidebar div,
+.admin-sidebar label,
+.admin-topbar h1,
+.admin-topbar h2,
+.admin-topbar h3,
+.admin-topbar h4,
+.admin-topbar h5,
+.admin-topbar p,
+.admin-topbar span,
+.admin-topbar div,
+.admin-topbar label,
+.admin-main h1,
+.admin-main h2,
+.admin-main h3,
+.admin-main h4,
+.admin-main h5,
+.admin-main p,
+.admin-main span,
+.admin-main div,
+.admin-main label,
+.modal h1,
+.modal h2,
+.modal h3,
+.modal h4,
+.modal h5,
+.modal p,
+.modal span,
+.modal div,
+.modal label {
   color: inherit;
 }
 
 /* Explicit text overrides for admin muted elements */
-.admin-muted, .stat-label, .table-search, .topbar-breadcrumb, .nav-link, th, .page-btn, .sidebar-section-label, .activity-time {
+.admin-muted,
+.stat-label,
+.table-search,
+.topbar-breadcrumb,
+.nav-link,
+th,
+.page-btn,
+.sidebar-section-label,
+.activity-time {
   color: var(--admin-muted) !important;
 }

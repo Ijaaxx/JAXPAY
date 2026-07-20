@@ -41,7 +41,7 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,34 +54,6 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
   <script src="../assets/js/theme.js"></script>
 </head>
 <body>
-
-// ── Chart Data: 7 days transactions ──
-$chart_labels = []; $chart_data = []; $chart_topup = [];
-for ($i = 6; $i >= 0; $i--) {
-    $date = date('Y-m-d', strtotime("-$i days"));
-    $chart_labels[] = date('d M', strtotime($date));
-    $tx = $koneksi->query("SELECT SUM(jumlah) as s FROM transaksi WHERE DATE(created_at)='$date' AND tipe IN ('pembayaran','qr_payment')")->fetch_assoc()['s'] ?? 0;
-    $tp = $koneksi->query("SELECT SUM(jumlah) as s FROM topup WHERE DATE(created_at)='$date' AND status='approved'")->fetch_assoc()['s'] ?? 0;
-    $chart_data[] = (float)$tx;
-    $chart_topup[] = (float)$tp;
-}
-
-// ── Role Distribution ──
-$role_data = [];
-$roles = ['student','teacher','parent','merchant'];
-foreach ($roles as $r) {
-    $role_data[] = (int)$koneksi->query("SELECT COUNT(*) as c FROM users WHERE role='$r'")->fetch_assoc()['c'];
-}
-
-// ── Recent Transactions ──
-$recent_tx = $koneksi->query("SELECT t.*, u.nama FROM transaksi t JOIN users u ON t.user_id=u.id ORDER BY t.created_at DESC LIMIT 8");
-
-// ── Activity Logs ──
-$activity = $koneksi->query("SELECT * FROM activity_logs ORDER BY created_at DESC LIMIT 8");
-
-// ── Recent Top Up Pending ──
-$pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN users u ON tp.user_id=u.id WHERE tp.status='pending' ORDER BY tp.created_at DESC LIMIT 5");
-?>
 
 <?php include 'sidebar.php'; ?>
 <?php include 'navbar.php'; ?>
@@ -166,7 +138,7 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
         <table>
           <thead>
             <tr>
-              <th>Kode</th><th>User</th><th>Tipe</th><th>Jumlah</th><th>Waktu</th><th>Status</th>
+              <th>User</th><th>Tipe</th><th>Jumlah</th><th>Waktu</th><th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -176,7 +148,6 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
             $is_pos = in_array($tx['tipe'], ['topup','transfer_masuk']);
           ?>
           <tr>
-            <td><code style="font-size:11px;color:var(--accent)"><?= $tx['kode_transaksi'] ?></code></td>
             <td><?= htmlspecialchars($tx['nama']) ?></td>
             <td><span class="badge badge-<?= $is_pos?'success':'warning' ?>"><?= $tipe_labels[$tx['tipe']]??$tx['tipe'] ?></span></td>
             <td style="font-weight:700;color:<?= $is_pos?'#10B981':'#EF4444' ?>">
@@ -271,10 +242,19 @@ new Chart(txCtx, {
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: '#E8E8F0', font: { size: 12 } } } },
+    plugins: {
+      legend: { labels: { color: '#334155', font: { size: 12 } } },
+      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#fff', borderColor: '#e2e8f0', borderWidth: 1 }
+    },
     scales: {
-      x: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11} }, grid: { color: 'rgba(255,255,255,0.05)' } },
-      y: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11}, callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(255,255,255,0.05)' } }
+      x: {
+        ticks: { color: '#475569', font:{size:11} },
+        grid: { color: 'rgba(15,23,42,0.06)' }
+      },
+      y: {
+        ticks: { color: '#475569', font:{size:11}, callback: v => 'Rp '+v.toLocaleString('id-ID') },
+        grid: { color: 'rgba(15,23,42,0.06)' }
+      }
     }
   }
 });
@@ -293,7 +273,9 @@ new Chart(roleCtx, {
   },
   options: {
     responsive: true, maintainAspectRatio: false, cutout: '65%',
-    plugins: { legend: { position: 'bottom', labels: { color: '#E8E8F0', font:{size:12}, padding: 14 } } }
+    plugins: { legend: { position: 'bottom', labels: { color: '#334155', font:{size:12}, padding: 14 } },
+      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#fff', borderColor: '#e2e8f0', borderWidth: 1 }
+    }
   }
 });
 

@@ -105,6 +105,11 @@ const ThemeManager = (function () {
   }
 
   function init() {
+    const path = window.location.pathname || "";
+    if (path.includes("/admin/")) {
+      apply(LIGHT);
+      return;
+    }
     apply(getSaved());
   }
 
@@ -135,6 +140,10 @@ function insertAppLogo() {
 document.addEventListener("DOMContentLoaded", function () {
   try {
     const path = window.location.pathname || "";
+    if (path.includes("/admin/")) {
+      ThemeManager.apply("light");
+      return;
+    }
     if (path.includes("/auth/")) {
       document
         .querySelectorAll(
