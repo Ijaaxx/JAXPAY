@@ -66,14 +66,10 @@
     width: min(390px, 94vw);
     height: min(844px, 94vh);
     margin: 12px;
-    background: #0A0A15;
+    background: var(--bg-phone, #0A0A15);
     border-radius: 50px;
     overflow: hidden;
-    box-shadow:
-      0 0 0 2px rgba(255,255,255,0.06),
-      0 0 0 8px rgba(255,255,255,0.02),
-      0 40px 80px rgba(0,0,0,0.7),
-      0 0 80px rgba(108,60,225,0.25);
+    box-shadow: var(--phone-shadow);
     display: flex;
     flex-direction: column;
   }
@@ -112,7 +108,7 @@
     padding: 0 28px 8px;
     font-size: 12px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-primary, #fff);
     flex-shrink: 0;
   }
   .status-icons { display: flex; gap: 6px; align-items: center; }
@@ -173,7 +169,7 @@
   }
 
   .login-card {
-    background: rgba(255,255,255,0.05);
+    background: var(--bg-card, rgba(255,255,255,0.05));
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 28px 24px;
@@ -183,7 +179,7 @@
   .login-card h2 {
     font-size: 20px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-primary, #fff);
     margin-bottom: 6px;
   }
   .login-card p {
@@ -206,12 +202,12 @@
   }
   .form-input {
     width: 100%;
-    background: rgba(255,255,255,0.07);
+    background: var(--bg-input, rgba(255,255,255,0.07));
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 14px 16px 14px 46px;
     font-size: 15px;
-    color: #fff;
+    color: var(--text-primary, #fff);
     outline: none;
     transition: all 0.3s;
     font-family: inherit;
@@ -326,7 +322,7 @@
   .demo-email:hover { text-decoration: underline; }
 </style>
   <link rel="stylesheet" href="../assets/css/theme.css?v=5">
-  <script src="../assets/js/theme.js?v=3" defer></script>
+  <script src="../assets/js/theme.js?v=4" defer></script>
   <script src="../assets/js/login.js" defer></script>
 </head>
 <body>

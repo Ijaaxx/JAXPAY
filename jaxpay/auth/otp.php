@@ -24,8 +24,8 @@ if (!$email) { header('Location: login.php'); exit; }
       radial-gradient(ellipse 60% 60% at 80% 110%, rgba(0,212,255,0.2) 0%, transparent 50%);
   }
   .phone-container {
-    width: min(390px, 94vw); height: min(844px, 94vh); background:#0A0A15; border-radius:50px; overflow:hidden;
-    box-shadow:0 0 0 2px rgba(255,255,255,0.06),0 40px 80px rgba(0,0,0,0.7),0 0 80px rgba(108,60,225,0.25);
+    width: min(390px, 94vw); height: min(844px, 94vh); background:var(--bg-phone, #0A0A15); border-radius:50px; overflow:hidden;
+    box-shadow:var(--phone-shadow);
     display:flex; flex-direction:column; margin:12px;
   }
   .notch { position:absolute; top:0; left:50%; transform:translateX(-50%); width:126px; height:37px;
@@ -35,31 +35,31 @@ if (!$email) { header('Location: login.php'); exit; }
   .notch-sensor { width:30px; height:6px; border-radius:3px; background:#1a1a1a; }
   .phone-container { position:relative; }
   .status-bar { height:50px; display:flex; align-items:flex-end; justify-content:space-between;
-    padding:0 28px 8px; font-size:12px; font-weight:600; color:#fff; flex-shrink:0; }
+    padding:0 28px 8px; font-size:12px; font-weight:600; color:var(--text-primary, #fff); flex-shrink:0; }
   .status-icons { display:flex; gap:6px; align-items:center; }
 
   .otp-content { flex:1; overflow-y:auto; padding:20px 28px 40px; scrollbar-width:none; }
   .otp-content::-webkit-scrollbar { display:none; }
 
-  .back-btn { display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6);
+  .back-btn { display:flex; align-items:center; gap:8px; color:var(--text-secondary);
     font-size:14px; cursor:pointer; margin-bottom:24px; background:none; border:none; }
-  .back-btn:hover { color:#fff; }
+  .back-btn:hover { color:var(--text-primary); }
 
   .otp-header { text-align:center; margin-bottom:32px; animation:fadeInDown 0.6s ease; }
   .otp-icon { width:80px; height:80px; background:linear-gradient(135deg,#6C3CE1,#00D4FF);
     border-radius:24px; display:flex; align-items:center; justify-content:center;
     margin:0 auto 20px; font-size:36px; color:#fff; box-shadow:0 8px 32px rgba(108,60,225,0.5); }
-  .otp-header h2 { font-size:22px; font-weight:700; color:#fff; margin-bottom:8px; }
+  .otp-header h2 { font-size:22px; font-weight:700; color:var(--text-primary, #fff); margin-bottom:8px; }
   .otp-header p { color:var(--text-muted); font-size:13px; }
   .email-display { color:#00D4FF; font-weight:600; }
 
-  .otp-card { background:rgba(255,255,255,0.05); border:1px solid var(--border);
+  .otp-card { background:var(--bg-card, rgba(255,255,255,0.05)); border:1px solid var(--border);
     border-radius:24px; padding:28px 24px; backdrop-filter:blur(20px); animation:fadeInUp 0.7s ease 0.2s both; }
 
   .otp-inputs { display:flex; gap:10px; justify-content:center; margin-bottom:28px; }
   .otp-input {
-    width:48px; height:58px; min-width:40px; background:rgba(255,255,255,0.07); border:2px solid var(--border);
-    border-radius:14px; font-size:24px; font-weight:700; color:#fff; text-align:center;
+    width:48px; height:58px; min-width:40px; background:var(--bg-input, rgba(255,255,255,0.07)); border:2px solid var(--border);
+    border-radius:14px; font-size:24px; font-weight:700; color:var(--text-primary, #fff); text-align:center;
     outline:none; transition:all 0.18s; caret-color:transparent;
   }
   .otp-input:focus { border-color:#6C3CE1; background:rgba(108,60,225,0.15);
@@ -85,7 +85,7 @@ if (!$email) { header('Location: login.php'); exit; }
   @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
 </style>
   <link rel="stylesheet" href="../assets/css/theme.css?v=5">
-  <script src="../assets/js/theme.js?v=3" defer></script>
+  <script src="../assets/js/theme.js?v=4" defer></script>
   <script src="../assets/js/otp.js" defer></script>
 </head>
 <body>
