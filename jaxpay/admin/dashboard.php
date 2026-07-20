@@ -241,65 +241,103 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
 <?php include 'footer.php'; ?>
 
 <script>
-// Transaction Chart
 const txCtx = document.getElementById('txChart').getContext('2d');
-new Chart(txCtx, {
+const roleCtx = document.getElementById('roleChart').getContext('2d');
+
+const txChart = new Chart(txCtx, {
   type: 'line',
   data: {
-    labels: <?= json_encode($chart_labels) ?>,
+    labels: [],
     datasets: [
       {
         label: 'Pembayaran (Rp)',
-        data: <?= json_encode($chart_data) ?>,
-        borderColor: '#6C3CE1', backgroundColor: 'rgba(108,60,225,0.1)',
-        tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#6C3CE1', pointBorderColor: '#fff', pointBorderWidth: 2
+        data: [],
+        borderColor: '#6C3CE1',
+        backgroundColor: 'rgba(108,60,225,0.12)',
+        tension: 0.4,
+        fill: true,
+        pointRadius: 5,
+        pointBackgroundColor: '#6C3CE1',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2
       },
       {
         label: 'Top Up Approved (Rp)',
-        data: <?= json_encode($chart_topup) ?>,
-        borderColor: '#10B981', backgroundColor: 'rgba(16,185,129,0.08)',
-        tension: 0.4, fill: true, pointRadius: 5, pointBackgroundColor: '#10B981', pointBorderColor: '#fff', pointBorderWidth: 2
+        data: [],
+        borderColor: '#10B981',
+        backgroundColor: 'rgba(16,185,129,0.12)',
+        tension: 0.4,
+        fill: true,
+        pointRadius: 5,
+        pointBackgroundColor: '#10B981',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2
       }
     ]
   },
   options: {
-    responsive: true, maintainAspectRatio: false,
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { labels: { color: '#334155', font: { size: 12 } } },
-      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#fff', borderColor: '#e2e8f0', borderWidth: 1 }
+      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderWidth: 1 }
     },
     scales: {
       x: {
-        ticks: { color: '#475569', font:{size:11} },
+        ticks: { color: '#475569', font: { size: 11 } },
         grid: { color: 'rgba(15,23,42,0.06)' }
       },
       y: {
-        ticks: { color: '#475569', font:{size:11}, callback: v => 'Rp '+v.toLocaleString('id-ID') },
+        ticks: { color: '#475569', font: { size: 11 }, callback: value => 'Rp ' + value.toLocaleString('id-ID') },
         grid: { color: 'rgba(15,23,42,0.06)' }
       }
     }
   }
 });
 
-// Role Chart
-const roleCtx = document.getElementById('roleChart').getContext('2d');
-new Chart(roleCtx, {
+const roleChart = new Chart(roleCtx, {
   type: 'doughnut',
   data: {
     labels: ['Student', 'Teacher', 'Parent', 'Merchant'],
     datasets: [{
-      data: <?= json_encode($role_data) ?>,
-      backgroundColor: ['rgba(108,60,225,0.8)','rgba(0,212,255,0.8)','rgba(16,185,129,0.8)','rgba(245,158,11,0.8)'],
-      borderColor: '#16162A', borderWidth: 3, hoverOffset: 8
+      data: [],
+      backgroundColor: ['rgba(108,60,225,0.9)','rgba(0,212,255,0.9)','rgba(16,185,129,0.9)','rgba(245,158,11,0.9)'],
+      borderColor: '#ffffff',
+      borderWidth: 3,
+      hoverOffset: 8
     }]
   },
   options: {
-    responsive: true, maintainAspectRatio: false, cutout: '65%',
-    plugins: { legend: { position: 'bottom', labels: { color: '#334155', font:{size:12}, padding: 14 } },
-      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#fff', borderColor: '#e2e8f0', borderWidth: 1 }
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '65%',
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#334155', font: { size: 12 }, padding: 14 } },
+      tooltip: { titleColor: '#0f172a', bodyColor: '#334155', backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderWidth: 1 }
     }
   }
 });
+
+function loadDashboardCharts() {
+  fetch('ajax_charts.php')
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.success) return;
+      txChart.data.labels = data.labels;
+      txChart.data.datasets[0].data = data.chart_data;
+      txChart.data.datasets[1].data = data.chart_topup;
+      txChart.update();
+
+      roleChart.data.datasets[0].data = data.role_data;
+      roleChart.update();
+    })
+    .catch((err) => {
+      console.error('Dashboard chart load failed:', err);
+    });
+}
+
+loadDashboardCharts();
+setInterval(loadDashboardCharts, 60000);
 
 if (window.JaxpayCharts) window.JaxpayCharts.applyAllCharts();
 </script>
