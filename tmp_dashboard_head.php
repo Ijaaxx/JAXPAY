@@ -27,20 +27,6 @@ for ($i = 6; $i >= 0; $i--) {
 }
 
 // ── Role Distribution ──
-$role_data = [];
-$roles = ['student','teacher','parent','merchant'];
-foreach ($roles as $r) {
-    $role_data[] = (int)$koneksi->query("SELECT COUNT(*) as c FROM users WHERE role='$r'")->fetch_assoc()['c'];
-}
-
-// ── Recent Transactions ──
-$recent_tx = $koneksi->query("SELECT t.*, u.nama FROM transaksi t JOIN users u ON t.user_id=u.id ORDER BY t.created_at DESC LIMIT 8");
-
-// ── Activity Logs ──
-$activity = $koneksi->query("SELECT * FROM activity_logs ORDER BY created_at DESC LIMIT 8");
-
-// ── Recent Top Up Pending ──
-$pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN users u ON tp.user_id=u.id WHERE tp.status='pending' ORDER BY tp.created_at DESC LIMIT 5");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -56,6 +42,21 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
 <script src="../assets/js/theme.js"></script>
 </head>
 <body>
+$role_data = [];
+$roles = ['student','teacher','parent','merchant'];
+foreach ($roles as $r) {
+    $role_data[] = (int)$koneksi->query("SELECT COUNT(*) as c FROM users WHERE role='$r'")->fetch_assoc()['c'];
+}
+
+// ── Recent Transactions ──
+$recent_tx = $koneksi->query("SELECT t.*, u.nama FROM transaksi t JOIN users u ON t.user_id=u.id ORDER BY t.created_at DESC LIMIT 8");
+
+// ── Activity Logs ──
+$activity = $koneksi->query("SELECT * FROM activity_logs ORDER BY created_at DESC LIMIT 8");
+
+// ── Recent Top Up Pending ──
+$pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN users u ON tp.user_id=u.id WHERE tp.status='pending' ORDER BY tp.created_at DESC LIMIT 5");
+?>
 
 <?php include 'sidebar.php'; ?>
 <?php include 'navbar.php'; ?>
