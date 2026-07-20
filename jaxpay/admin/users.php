@@ -20,8 +20,8 @@ $total = $koneksi->query("SELECT COUNT(*) as c FROM users $where")->fetch_assoc(
 <title>JAXPAY Admin - Kelola User</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="../assets/css/admin.css?v=2">
-  <link rel="stylesheet" href="../assets/css/theme.css?v=4">
+<link rel="stylesheet" href="../assets/css/admin.css?v=6">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=6">
 
 </head>
 <body>

@@ -39,8 +39,8 @@ foreach (['student','teacher','parent','merchant'] as $r) {
 <title>JAXPAY Admin - Laporan</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="../assets/css/admin.css?v=2">
-  <link rel="stylesheet" href="../assets/css/theme.css?v=4">
+<link rel="stylesheet" href="../assets/css/admin.css?v=6">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=6">
 
 </head>
 <body>

@@ -131,7 +131,7 @@ body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color
 .custom-modal-content button:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(108,60,225,0.25); }
 .custom-modal-content button:active { transform: translateY(0); }
 </style>
-  <link rel="stylesheet" href="../assets/css/theme.css?v=4">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=6">
   
 </head>
 <body>
