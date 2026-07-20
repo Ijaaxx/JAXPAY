@@ -51,9 +51,8 @@ $pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="../assets/css/admin.css">
-<link rel="stylesheet" href="../assets/css/theme.css">
-<script src="../assets/js/theme.js"></script>
+<link rel="stylesheet" href="../assets/css/admin.css?v=5">
+<link rel="stylesheet" href="../assets/css/theme.css?v=5">
 </head>
 <body>
 
