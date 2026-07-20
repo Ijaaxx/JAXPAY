@@ -20,7 +20,7 @@ $li = $level_icons[$user['member_level']] ?? 'fa-star';
 <title>JAXPAY - Profil</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .profile-hero {
   background: linear-gradient(135deg, #6C3CE1 0%, #9B72EF 55%, #00D4FF 100%);

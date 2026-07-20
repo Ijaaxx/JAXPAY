@@ -43,7 +43,7 @@ $preset_amount = isset($qr_data['amount']) ? (int)$qr_data['amount'] : 0;
 <title>JAXPAY - Pembayaran</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .payment-hero { padding:24px 20px; text-align:center; }
 .payment-icon { width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;margin:0 auto 16px;box-shadow:0 8px 32px rgba(108,60,225,0.4); }

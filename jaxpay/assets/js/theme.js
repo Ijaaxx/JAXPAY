@@ -128,7 +128,7 @@ function insertAppLogo() {
   const logoRow = document.createElement("div");
   logoRow.className = "app-logo-row animate-up";
   logoRow.innerHTML = `
-    <img src="../assets/img/Logo.png" alt="JAXPAY" class="app-logo">
+    <img src="../assets/img/Logo.png" alt="JAXPAY" class="app-logo" style="width: 44px; height: 44px; object-fit: contain; border-radius: 16px;">
     <div class="app-logo-text">
       <div class="app-logo-title">JAXPAY</div>
       <div class="app-logo-sub">School Digital Wallet</div>

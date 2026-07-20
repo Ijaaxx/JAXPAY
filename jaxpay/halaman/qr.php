@@ -21,7 +21,7 @@ $qr_data = json_encode([
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .qr-tabs {
   display: flex; margin: 16px; gap: 8px;

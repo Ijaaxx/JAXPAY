@@ -31,7 +31,7 @@ $tipe_icon = ['topup'=>['topup','fa-arrow-down-to-line'],'transfer_masuk'=>['in'
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JAXPAY - Riwayat Transaksi</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .filter-tabs {
   display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; scrollbar-width: none;

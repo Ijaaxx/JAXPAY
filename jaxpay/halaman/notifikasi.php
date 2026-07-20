@@ -21,7 +21,7 @@ $notif_icons = ['topup'=>'fa-plus','transfer'=>'fa-paper-plane','pembayaran'=>'f
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JAXPAY - Notifikasi</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .notif-item {
   display: flex; gap: 12px; padding: 14px; background: var(--card);

@@ -37,7 +37,7 @@ $colors = ['Makanan & Minuman'=>'linear-gradient(135deg,#f59e0b,#ef4444)','Peral
 <title>JAXPAY - Merchant</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .merchant-search { margin: 14px 16px; position: relative; }
 .merchant-search input { width:100%; background:rgba(255,255,255,0.07); border:1px solid var(--border); border-radius:14px; padding:13px 16px 13px 44px; font-size:14px; color:#fff; outline:none; font-family:inherit; }

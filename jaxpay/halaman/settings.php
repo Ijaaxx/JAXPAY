@@ -16,7 +16,7 @@ if (isset($_SESSION['msg'])) { $msg = $_SESSION['msg']; unset($_SESSION['msg']);
 <title>JAXPAY - Pengaturan</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .settings-section { padding: 0 16px; margin-bottom: 16px; }
 .settings-section h3 { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding-left: 4px; }

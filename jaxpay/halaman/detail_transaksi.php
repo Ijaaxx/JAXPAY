@@ -19,7 +19,7 @@ $ic = $tipe_icon_map[$tx['tipe']] ?? ['pay','fa-receipt'];
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JAXPAY - Detail Transaksi</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="../assets/css/mobile.css">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
 <style>
 .detail-hero {
   text-align: center; padding: 30px 20px 24px;
