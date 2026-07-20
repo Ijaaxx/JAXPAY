@@ -16,78 +16,54 @@ unset($_SESSION['admin_error']);
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--primary:#6C3CE1;--accent:#00D4FF;--dark:#ffffff;--surface:#f8fafc;--border:rgba(15,23,42,0.1)}
-body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color:#0f172a;background:#f8fafc;overflow-x:hidden;}
+body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color:#0f172a;background:#0f172a;overflow-x:hidden;}
 
-/* Split Layout */
 .login-layout {
-  display: flex;
+  position: relative;
   min-height: 100vh;
   width: 100%;
-}
-
-.login-hero {
-  flex: 1;
   background-image: url('../assets/img/BG_WEBSITE%20ADMIN.png');
   background-size: cover;
   background-position: center;
-  position: relative;
-  display: none; /* hidden on mobile */
+  background-repeat: no-repeat;
 }
 
-.hero-image {
-  width: 100%;
-  max-width: 420px;
-  border-radius: 22px;
-  object-fit: cover;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
-  margin-bottom: 24px;
-  display: block;
-}
-
-@media(min-width: 900px) {
-  .login-hero { display: flex; align-items: flex-end; }
-}
-
-.hero-overlay {
+.login-layout::before {
+  content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(108,60,225,0.85) 0%, rgba(0,212,255,0.6) 100%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-  padding: 60px;
-  color: white;
-  animation: fadeInUp 0.8s ease;
-}
-
-.hero-content h2 {
-  font-size: 42px;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 12px;
-  letter-spacing: -0.5px;
-}
-
-.hero-content p {
-  font-size: 16px;
-  opacity: 0.9;
-  max-width: 400px;
-  line-height: 1.5;
+  background: rgba(10, 15, 40, 0.35);
 }
 
 .login-form-area {
-  flex: 0 0 100%;
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  background: #f4f5ff;
+  padding: 40px 24px;
 }
 
-@media(min-width: 900px) {
-  .login-form-area { flex: 0 0 450px; box-shadow: -10px 0 30px rgba(0,0,0,0.05); z-index: 20; }
+.login-wrap {
+  width: 100%;
+  max-width: 440px;
+  padding: 42px 36px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 32px 90px rgba(15, 23, 42, 0.22);
+  backdrop-filter: blur(18px);
+}
+
+.login-logo { text-align:center; margin-bottom: 24px; }
+.logo-img { width: 66px; height: 66px; display: block; margin: 0 auto 16px; border-radius: 18px; object-fit: contain; }
+.login-logo h1 { font-size: 30px; font-weight: 800; letter-spacing: 1px; background: linear-gradient(135deg, #1a0050, #6C3CE1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.login-logo p { color: #64748b; font-size: 13px; margin-top: 6px; }
+.admin-badge { display: inline-block; background: rgba(108,60,225,0.1); border: 1px solid rgba(108,60,225,0.22); border-radius: 20px; padding: 6px 14px; font-size: 11px; font-weight: 700; color: #6C3CE1; letter-spacing: 1px; margin-top: 10px; }
+
+@media (max-width: 900px) {
+  .login-wrap { padding: 32px 24px; border-radius: 28px; }
 }
 
 .login-wrap {
@@ -161,17 +137,6 @@ body{margin:0;min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;color
 <body>
 
 <div class="login-layout">
-  <!-- Left Side: Hero Image -->
-  <div class="login-hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <img src="../assets/img/login-school.jpg" alt="SMA Muhammadiyah 9 Kota Bekasi" class="hero-image">
-      <h2>SMA Muhammadiyah 9<br>Kota Bekasi</h2>
-      <p>Sistem Manajemen Pembayaran & Dompet Digital Sekolah Terintegrasi.</p>
-    </div>
-  </div>
-
-  <!-- Right Side: Login Form -->
   <div class="login-form-area">
     <div class="login-wrap">
       <div class="login-logo">
