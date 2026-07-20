@@ -247,7 +247,7 @@ new Chart(txCtx, {
     plugins: { legend: { labels: { color: '#0f172a', font: { size: 12 } } } },
     scales: {
       x: { ticks: { color: 'rgba(15,23,42,0.6)', font:{size:11} }, grid: { color: 'rgba(15,23,42,0.08)' } },
-      y: { ticks: { color: 'rgba(15,23,42,0.6)', font:{size:11}, callback: v => 'Rp ' + (Number(v) || 0).toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
+      y: { beginAtZero: true, suggestedMax: 10000, ticks: { color: 'rgba(15,23,42,0.6)', font:{size:11}, callback: v => 'Rp ' + (Number(v) || 0).toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
     }
   }
 });

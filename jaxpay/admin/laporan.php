@@ -173,7 +173,7 @@ new Chart(dailyCtx, {
     plugins: { legend: { labels: { color: '#0f172a', font:{size:12} } } },
     scales: {
       x: { ticks: { color: 'rgba(15,23,42,0.6)' }, grid: { color: 'rgba(15,23,42,0.08)' } },
-      y: { ticks: { color: 'rgba(15,23,42,0.6)', callback: v => 'Rp ' + (Number(v) || 0).toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
+      y: { beginAtZero: true, suggestedMax: 10000, ticks: { color: 'rgba(15,23,42,0.6)', callback: v => 'Rp ' + (Number(v) || 0).toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
     }
   }
 });

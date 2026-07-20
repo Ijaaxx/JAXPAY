@@ -19,32 +19,36 @@ if (typeof Chart !== 'undefined') {
 
   function applyChartTheme(chart) {
     if (!chart) return;
-    const c = getThemeColors();
-    chart.options.plugins = chart.options.plugins || {};
-    chart.options.plugins.legend = chart.options.plugins.legend || {};
-    chart.options.plugins.legend.labels = chart.options.plugins.legend.labels || {};
-    chart.options.plugins.legend.labels.color = c.muted;
-    chart.options.plugins.tooltip = {
-      ...(chart.options.plugins.tooltip || {}),
-      backgroundColor: c.surface,
-      titleColor: c.text,
-      bodyColor: c.muted,
-      borderColor: c.border,
-      borderWidth: 1
-    };
-    if (chart.options.scales) {
-      Object.values(chart.options.scales).forEach(scale => {
-        scale.ticks = scale.ticks || {};
-        scale.grid = scale.grid || {};
-        scale.ticks.color = c.muted;
-        scale.grid.color = c.border;
+    try {
+      const c = getThemeColors();
+      chart.options.plugins = chart.options.plugins || {};
+      chart.options.plugins.legend = chart.options.plugins.legend || {};
+      chart.options.plugins.legend.labels = chart.options.plugins.legend.labels || {};
+      chart.options.plugins.legend.labels.color = c.muted;
+      chart.options.plugins.tooltip = {
+        ...(chart.options.plugins.tooltip || {}),
+        backgroundColor: c.surface,
+        titleColor: c.text,
+        bodyColor: c.muted,
+        borderColor: c.border,
+        borderWidth: 1
+      };
+      if (chart.options.scales) {
+        Object.values(chart.options.scales).forEach(scale => {
+          scale.ticks = scale.ticks || {};
+          scale.grid = scale.grid || {};
+          scale.ticks.color = c.muted;
+          scale.grid.color = c.border;
+        });
+      }
+      chart.data.datasets.forEach(ds => {
+        if (ds.pointBorderColor) ds.pointBorderColor = c.surface;
+        if (ds.borderColor && chart.config.type === 'doughnut') ds.borderColor = c.surface;
       });
+      chart.update('none');
+    } catch (e) {
+      console.warn("Failed to apply chart theme dynamically: ", e);
     }
-    chart.data.datasets.forEach(ds => {
-      if (ds.pointBorderColor) ds.pointBorderColor = c.surface;
-      if (ds.borderColor && chart.config.type === 'doughnut') ds.borderColor = c.surface;
-    });
-    chart.update('none');
   }
 
   function applyAllCharts() {
