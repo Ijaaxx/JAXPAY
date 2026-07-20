@@ -13,7 +13,7 @@ $user = $koneksi->query("SELECT * FROM users WHERE id=$user_id")->fetch_assoc();
 <title>JAXPAY - Top Up</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="../assets/css/mobile.css?v=5">
+<link rel="stylesheet" href="../assets/css/mobile.css?v=6">
 <style>
 .section-pad { padding: 0 16px; }
 .bank-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
@@ -27,7 +27,7 @@ $user = $koneksi->query("SELECT * FROM users WHERE id=$user_id")->fetch_assoc();
   background: rgba(108,60,225,0.12);
 }
 .bank-logo { font-size: 22px; margin-bottom: 6px; }
-.bank-name { font-size: 13px; font-weight: 700; color: #fff; }
+.bank-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
 .bank-acc { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
 .amount-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
@@ -35,7 +35,7 @@ $user = $koneksi->query("SELECT * FROM users WHERE id=$user_id")->fetch_assoc();
   background: rgba(255,255,255,0.06); border: 1px solid var(--border);
   border-radius: 12px; padding: 12px; text-align: center;
   cursor: pointer; transition: all 0.2s; font-family: inherit;
-  color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600;
+  color: var(--text-secondary); font-size: 13px; font-weight: 600;
 }
 .preset-btn:hover, .preset-btn.active {
   border-color: var(--primary-light); color: var(--primary-light);
@@ -53,7 +53,7 @@ $user = $koneksi->query("SELECT * FROM users WHERE id=$user_id")->fetch_assoc();
 }
 .upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .upload-icon { font-size: 32px; color: var(--primary-light); margin-bottom: 10px; }
-.upload-text { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7); }
+.upload-text { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
 .upload-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 .preview-img { max-width: 100%; border-radius: 12px; margin-top: 10px; display: none; }
 
@@ -62,7 +62,7 @@ $user = $koneksi->query("SELECT * FROM users WHERE id=$user_id")->fetch_assoc();
   border-radius: 14px; padding: 14px; margin-bottom: 16px;
 }
 .info-card h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
-.info-card p { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.info-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 </style>
   <link rel="stylesheet" href="../assets/css/theme.css?v=4">
   <script src="../assets/js/theme.js?v=3"></script>
@@ -122,7 +122,7 @@ $user = $koneksi->query("SELECT * FROM users WHERE id=$user_id")->fetch_assoc();
       <!-- Transfer Target -->
       <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:14px;margin-bottom:16px;" class="animate-up-2">
         <div style="font-size:11px;color:#10B981;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Transfer ke a/n JAXPAY SCHOOL</div>
-        <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:2px;" id="bankNoDisplay">1234-5678-90</div>
+        <div style="font-size:22px;font-weight:800;color:var(--text-primary);letter-spacing:2px;" id="bankNoDisplay">1234-5678-90</div>
         <div style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="bankNameDisplay">BCA</div>
         <button onclick="copyRekening()" style="margin-top:10px;background:rgba(16,185,129,0.2);border:1px solid rgba(16,185,129,0.3);color:#10B981;border-radius:10px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">
           <i class="fas fa-copy"></i> Salin Nomor
