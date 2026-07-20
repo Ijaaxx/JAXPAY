@@ -1626,3 +1626,70 @@ th,
 .activity-time {
   color: rgba(15, 23, 42, 0.65) !important;
 }
+html[data-theme="light"] body,
+html[data-theme="light"] .admin-sidebar,
+html[data-theme="light"] .admin-topbar,
+html[data-theme="light"] .admin-main,
+html[data-theme="light"] .admin-card,
+html[data-theme="light"] .stat-card,
+html[data-theme="light"] .chart-container,
+html[data-theme="light"] .table-wrapper,
+html[data-theme="light"] .sidebar-admin-card,
+html[data-theme="light"] .topbar-btn,
+html[data-theme="light"] .theme-toggle-admin,
+html[data-theme="light"] .table-search,
+html[data-theme="light"] .table-select,
+html[data-theme="light"] .form-control,
+html[data-theme="light"] .modal,
+html[data-theme="light"] .page-btn,
+html[data-theme="light"] .badge,
+html[data-theme="light"] .nav-link {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] body {
+  background: #f6f8fc !important;
+  color: #0f172a !important;
+}
+
+html[data-theme="light"] .admin-main {
+  background: #f6f8fc !important;
+}
+
+html[data-theme="light"] .nav-link:hover {
+  color: #0f172a !important;
+  background: rgba(15, 23, 42, 0.04) !important;
+}
+
+html[data-theme="light"] .nav-link.active {
+  color: #0f172a !important;
+  background: rgba(108, 60, 225, 0.12) !important;
+}
+
+html[data-theme="light"] .sidebar-section-label,
+html[data-theme="light"] .topbar-breadcrumb,
+html[data-theme="light"] .stat-label,
+html[data-theme="light"] .activity-time {
+  color: rgba(15, 23, 42, 0.72) !important;
+}
+
+html[data-theme="light"] th,
+html[data-theme="light"] td {
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-theme="light"] thead tr {
+  background: rgba(15, 23, 42, 0.04) !important;
+}
+
+html[data-theme="light"] tbody tr {
+  background: rgba(15, 23, 42, 0.02) !important;
+}
+
+html[data-theme="light"] tbody tr:hover {
+  background: rgba(15, 23, 42, 0.06) !important;
+}
