@@ -4,6 +4,41 @@ require_once '../koneksi.php';
 if (!isset($_SESSION['admin_id'])) { header('Location: index.php'); exit; }
 
 // ── Stats ──
+$total_users     = $koneksi->query("SELECT COUNT(*) as c FROM users")->fetch_assoc()['c'];
+$total_merchant  = $koneksi->query("SELECT COUNT(*) as c FROM merchant WHERE is_active=1")->fetch_assoc()['c'];
+$total_transaksi = $koneksi->query("SELECT COUNT(*) as c FROM transaksi WHERE DATE(created_at)=CURDATE()")->fetch_assoc()['c'];
+$pending_topup   = $koneksi->query("SELECT COUNT(*) as c FROM topup WHERE status='pending'")->fetch_assoc()['c'];
+$total_saldo_res = $koneksi->query("SELECT SUM(saldo) as s FROM users");
+$total_saldo     = $total_saldo_res->fetch_assoc()['s'] ?? 0;
+$omzet_hari_ini  = $koneksi->query("SELECT SUM(jumlah) as s FROM transaksi WHERE DATE(created_at)=CURDATE() AND tipe IN ('pembayaran','qr_payment')")->fetch_assoc()['s'] ?? 0;
+
+// ── Chart Data: 7 days transactions ──
+$chart_labels = []; $chart_data = []; $chart_topup = [];
+for ($i = 6; $i >= 0; $i--) {
+    $date = date('Y-m-d', strtotime("-$i days"));
+    $chart_labels[] = date('d M', strtotime($date));
+    $tx = $koneksi->query("SELECT SUM(jumlah) as s FROM transaksi WHERE DATE(created_at)='$date' AND tipe IN ('pembayaran','qr_payment')")->fetch_assoc()['s'] ?? 0;
+    $tp = $koneksi->query("SELECT SUM(jumlah) as s FROM topup WHERE DATE(created_at)='$date' AND status='approved'")->fetch_assoc()['s'] ?? 0;
+    $chart_data[] = (float)$tx;
+    $chart_topup[] = (float)$tp;
+}
+
+// ── Role Distribution ──
+$role_data = [];
+$roles = ['student','teacher','parent','merchant'];
+foreach ($roles as $r) {
+    $role_data[] = (int)$koneksi->query("SELECT COUNT(*) as c FROM users WHERE role='$r'")->fetch_assoc()['c'];
+}
+
+// ── Recent Transactions ──
+$recent_tx = $koneksi->query("SELECT t.*, u.nama FROM transaksi t JOIN users u ON t.user_id=u.id ORDER BY t.created_at DESC LIMIT 8");
+
+// ── Activity Logs ──
+$activity = $koneksi->query("SELECT * FROM activity_logs ORDER BY created_at DESC LIMIT 8");
+
+// ── Recent Top Up Pending ──
+$pending_list = $koneksi->query("SELECT tp.*, u.nama, u.email FROM topup tp JOIN users u ON tp.user_id=u.id WHERE tp.status='pending' ORDER BY tp.created_at DESC LIMIT 5");
+?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -19,13 +54,6 @@ if (!isset($_SESSION['admin_id'])) { header('Location: index.php'); exit; }
   <script src="../assets/js/theme.js"></script>
 </head>
 <body>
-$total_users     = $koneksi->query("SELECT COUNT(*) as c FROM users")->fetch_assoc()['c'];
-$total_merchant  = $koneksi->query("SELECT COUNT(*) as c FROM merchant WHERE is_active=1")->fetch_assoc()['c'];
-$total_transaksi = $koneksi->query("SELECT COUNT(*) as c FROM transaksi WHERE DATE(created_at)=CURDATE()")->fetch_assoc()['c'];
-$pending_topup   = $koneksi->query("SELECT COUNT(*) as c FROM topup WHERE status='pending'")->fetch_assoc()['c'];
-$total_saldo_res = $koneksi->query("SELECT SUM(saldo) as s FROM users");
-$total_saldo     = $total_saldo_res->fetch_assoc()['s'] ?? 0;
-$omzet_hari_ini  = $koneksi->query("SELECT SUM(jumlah) as s FROM transaksi WHERE DATE(created_at)=CURDATE() AND tipe IN ('pembayaran','qr_payment')")->fetch_assoc()['s'] ?? 0;
 
 // ── Chart Data: 7 days transactions ──
 $chart_labels = []; $chart_data = []; $chart_topup = [];
