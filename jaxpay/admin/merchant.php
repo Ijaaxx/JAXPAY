@@ -7,7 +7,7 @@ $merchants = $koneksi->query("SELECT m.*, u.nama, u.email, u.saldo FROM merchant
 $merchant_users = $koneksi->query("SELECT id, nama, email FROM users WHERE role='merchant' AND is_active=1");
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
