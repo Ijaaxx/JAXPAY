@@ -245,10 +245,10 @@ new Chart(txCtx, {
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: '#E8E8F0', font: { size: 12 } } } },
+    plugins: { legend: { labels: { color: '#0f172a', font: { size: 12 } } } },
     scales: {
-      x: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11} }, grid: { color: 'rgba(255,255,255,0.05)' } },
-      y: { ticks: { color: 'rgba(232,232,240,0.5)', font:{size:11}, callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(255,255,255,0.05)' } }
+      x: { ticks: { color: 'rgba(15,23,42,0.6)', font:{size:11} }, grid: { color: 'rgba(15,23,42,0.08)' } },
+      y: { ticks: { color: 'rgba(15,23,42,0.6)', font:{size:11}, callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
     }
   }
 });
@@ -262,12 +262,12 @@ new Chart(roleCtx, {
     datasets: [{
       data: <?= json_encode($role_data) ?>,
       backgroundColor: ['rgba(108,60,225,0.8)','rgba(0,212,255,0.8)','rgba(16,185,129,0.8)','rgba(245,158,11,0.8)'],
-      borderColor: '#16162A', borderWidth: 3, hoverOffset: 8
+      borderColor: '#ffffff', borderWidth: 3, hoverOffset: 8
     }]
   },
   options: {
     responsive: true, maintainAspectRatio: false, cutout: '65%',
-    plugins: { legend: { position: 'bottom', labels: { color: '#E8E8F0', font:{size:12}, padding: 14 } } }
+    plugins: { legend: { position: 'bottom', labels: { color: '#0f172a', font:{size:12}, padding: 14 } } }
   }
 });
 

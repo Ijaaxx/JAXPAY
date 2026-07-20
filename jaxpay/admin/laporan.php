@@ -170,10 +170,10 @@ new Chart(dailyCtx, {
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: '#E8E8F0', font:{size:12} } } },
+    plugins: { legend: { labels: { color: '#0f172a', font:{size:12} } } },
     scales: {
-      x: { ticks: { color: 'rgba(232,232,240,0.5)' }, grid: { color: 'rgba(255,255,255,0.04)' } },
-      y: { ticks: { color: 'rgba(232,232,240,0.5)', callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(255,255,255,0.04)' } }
+      x: { ticks: { color: 'rgba(15,23,42,0.6)' }, grid: { color: 'rgba(15,23,42,0.08)' } },
+      y: { ticks: { color: 'rgba(15,23,42,0.6)', callback: v => 'Rp '+v.toLocaleString('id-ID') }, grid: { color: 'rgba(15,23,42,0.08)' } }
     }
   }
 });
