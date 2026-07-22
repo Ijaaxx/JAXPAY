@@ -120,63 +120,6 @@ $total_topup_approved = $koneksi->query("SELECT COUNT(*) as c FROM topup WHERE s
         </div>
       </div>
 
-      <!-- SMTP Config Info -->
-      <div class="admin-card" style="margin-bottom:18px">
-        <div class="admin-card-header">
-          <h3><i class="fas fa-envelope" style="color:var(--info)"></i> Konfigurasi Email (SMTP)</h3>
-        </div>
-        <div class="admin-card-body padded">
-          <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:16px;margin-bottom:16px">
-            <p style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8">
-              Konfigurasi SMTP diatur di file <code style="background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:6px;color:#00D4FF">koneksi.php</code>.<br>
-              Ubah nilai berikut di file tersebut:
-            </p>
-          </div>
-          <div style="background:var(--surface-3);border-radius:12px;padding:16px;font-family:monospace;font-size:12px;line-height:2;color:#10B981">
-            define('SMTP_HOST', 'smtp.gmail.com');<br>
-            define('SMTP_USER', '<span style="color:#F59E0B">youremail@gmail.com</span>');<br>
-            define('SMTP_PASS', '<span style="color:#F59E0B">your_app_password</span>');<br>
-            define('SMTP_PORT', 587);<br>
-            define('SMTP_FROM', 'noreply@jaxpay.id');
-          </div>
-          <p style="font-size:12px;color:var(--text-muted);margin-top:12px">
-            <i class="fas fa-info-circle" style="color:var(--info)"></i>
-            Gunakan <strong>App Password</strong> Gmail (bukan password utama). Aktifkan 2FA dulu di akun Google Anda.
-          </p>
-        </div>
-      </div>
-
-      <!-- Theme Toggle -->
-      <div class="admin-card" style="margin-bottom:18px">
-        <div class="admin-card-header">
-          <h3><i class="fas fa-circle-half-stroke" style="color:var(--primary-light)"></i> Mode Tampilan</h3>
-        </div>
-        <div class="admin-card-body padded">
-          <p style="font-size:13px;color:var(--admin-muted,rgba(232,232,240,0.5));margin-bottom:18px">
-            Pilih tampilan dashboard yang nyaman untuk Anda. Preferensi tersimpan otomatis di browser.
-          </p>
-          <div style="display:flex;gap:14px">
-            <!-- Dark Mode Card -->
-            <div id="cardDark" onclick="setTheme('dark')" style="flex:1;border:2px solid var(--primary);border-radius:14px;padding:18px;cursor:pointer;background:rgba(108,60,225,0.12);text-align:center;transition:all 0.2s">
-              <div style="font-size:32px;margin-bottom:10px">🌙</div>
-              <div style="font-size:14px;font-weight:700;color:var(--admin-text,#E8E8F0)">Mode Gelap</div>
-              <div style="font-size:12px;color:var(--admin-muted,rgba(232,232,240,0.5));margin-top:4px">Nyaman di malam hari</div>
-              <div id="badgeDark" style="display:inline-block;margin-top:10px;background:var(--primary);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">✓ Aktif</div>
-            </div>
-            <!-- Light Mode Card -->
-            <div id="cardLight" onclick="setTheme('light')" style="flex:1;border:2px solid var(--admin-border,rgba(255,255,255,0.1));border-radius:14px;padding:18px;cursor:pointer;background:rgba(255,255,255,0.03);text-align:center;transition:all 0.2s">
-              <div style="font-size:32px;margin-bottom:10px">☀️</div>
-              <div style="font-size:14px;font-weight:700;color:var(--admin-text,#E8E8F0)">Mode Terang</div>
-              <div style="font-size:12px;color:var(--admin-muted,rgba(232,232,240,0.5));margin-top:4px">Terang dan bersih</div>
-              <div id="badgeLight" style="display:none;margin-top:10px;background:var(--primary);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">✓ Aktif</div>
-            </div>
-          </div>
-          <p style="font-size:11px;color:var(--admin-muted,rgba(232,232,240,0.5));margin-top:14px;text-align:center">
-            <i class="fas fa-keyboard"></i> Shortcut: <kbd style="background:rgba(255,255,255,0.1);padding:2px 7px;border-radius:5px;font-size:11px">Ctrl + Shift + T</kbd>
-          </p>
-        </div>
-      </div>
-
       <!-- Danger Zone -->
       <div class="admin-card" style="border-color:rgba(239,68,68,0.25)">
         <div class="admin-card-header" style="border-color:rgba(239,68,68,0.15)">
@@ -203,27 +146,6 @@ $total_topup_approved = $koneksi->query("SELECT COUNT(*) as c FROM topup WHERE s
 <?php include 'footer.php'; ?>
 
 <script>
-function setTheme(theme) {
-  if (window.ThemeManager) ThemeManager.apply(theme);
-  updateThemeCards(theme);
-}
-
-function updateThemeCards(theme) {
-  const isDark = theme === 'dark';
-  // Dark card
-  document.getElementById('cardDark').style.borderColor  = isDark ? 'var(--primary)' : 'var(--admin-border, rgba(255,255,255,0.1))';
-  document.getElementById('cardDark').style.background   = isDark ? 'rgba(108,60,225,0.12)' : 'rgba(255,255,255,0.03)';
-  document.getElementById('badgeDark').style.display     = isDark ? 'inline-block' : 'none';
-  // Light card
-  document.getElementById('cardLight').style.borderColor = isDark ? 'var(--admin-border, rgba(255,255,255,0.1))' : 'var(--primary)';
-  document.getElementById('cardLight').style.background  = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(108,60,225,0.12)';
-  document.getElementById('badgeLight').style.display    = isDark ? 'none' : 'inline-block';
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  updateThemeCards(ThemeManager.getSaved());
-  window.addEventListener('jaxpay:theme-change', e => updateThemeCards(e.detail.theme));
-});
 
 document.getElementById('profileForm').addEventListener('submit', async e => {
   e.preventDefault();
