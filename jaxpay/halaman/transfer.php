@@ -21,21 +21,21 @@ $users = $koneksi->query("SELECT id,nama,email,role,member_id,saldo FROM users W
   margin: 16px; position: relative;
 }
 .search-input {
-  width:100%; background:rgba(255,255,255,0.07); border:1px solid var(--border);
+  width:100%; background:var(--bg-input); border:1px solid var(--border);
   border-radius:16px; padding:14px 16px 14px 46px; font-size:15px;
-  color:#fff; outline:none; font-family:inherit; transition:all 0.3s;
+  color:var(--text-primary); outline:none; font-family:inherit; transition:all 0.3s;
 }
-.search-input::placeholder { color:rgba(255,255,255,0.3); }
+.search-input::placeholder { color:var(--text-muted); }
 .search-input:focus { border-color:var(--primary-light); box-shadow:0 0 0 3px rgba(108,60,225,0.2); }
 .search-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--primary-light); }
 
 .user-list { padding: 0 16px; }
 .user-card {
   display:flex; align-items:center; gap:14px;
-  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  background:var(--bg-card); border:1px solid var(--border); border-radius:16px;
   padding:14px; margin-bottom:10px; cursor:pointer; transition:all 0.2s;
 }
-.user-card:hover { background:var(--card-hover); border-color:var(--primary); transform:translateX(4px); }
+.user-card:hover { background:var(--bg-card-hover); border-color:var(--primary); transform:translateX(4px); }
 .user-card.selected { border-color:var(--primary-light); background:rgba(108,60,225,0.15); }
 .user-avatar {
   width:46px; height:46px; border-radius:50%;
@@ -44,7 +44,7 @@ $users = $koneksi->query("SELECT id,nama,email,role,member_id,saldo FROM users W
   font-size:18px; font-weight:700; color:#fff; flex-shrink:0;
 }
 .user-info { flex:1; }
-.user-info h4 { font-size:14px; font-weight:600; margin-bottom:3px; }
+.user-info h4 { font-size:14px; font-weight:600; margin-bottom:3px; color:var(--text-primary); }
 .user-info p { font-size:12px; color:var(--text-muted); }
 .user-role { font-size:10px; padding:3px 8px; border-radius:20px; font-weight:700; }
 .role-student { background:rgba(108,60,225,0.2); color:var(--primary-light); }
@@ -57,16 +57,17 @@ $users = $koneksi->query("SELECT id,nama,email,role,member_id,saldo FROM users W
 .amount-input-wrap { position:relative; }
 .amount-prefix { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-weight:700; font-size:15px; }
 .amount-input {
-  width:100%; background:rgba(255,255,255,0.07); border:1px solid var(--border);
+  width:100%; background:var(--bg-input); border:1px solid var(--border);
   border-radius:16px; padding:16px 16px 16px 56px; font-size:22px;
-  font-weight:700; color:#fff; outline:none; font-family:inherit; transition:all 0.3s;
+  font-weight:700; color:var(--text-primary); outline:none; font-family:inherit; transition:all 0.3s;
 }
+.amount-input::placeholder { color:var(--text-muted); }
 .amount-input:focus { border-color:var(--primary-light); box-shadow:0 0 0 3px rgba(108,60,225,0.2); }
 
 .quick-amounts { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
 .quick-amt {
   padding:8px 14px; border-radius:10px; border:1px solid var(--border);
-  background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.7);
+  background:var(--bg-card); color:var(--text-secondary);
   font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s;
 }
 .quick-amt:hover { border-color:var(--primary-light); color:var(--primary-light); background:rgba(108,60,225,0.1); }

@@ -197,13 +197,17 @@ body {
 .payment-card,
 .detail-card,
 .login-card,
-.otp-card {
+.otp-card,
+.quick-amt,
+.preset-btn {
   background: var(--bg-card) !important;
   border-color: var(--border) !important;
 }
 .card:hover,
 .tx-item:hover,
-.user-card:hover {
+.user-card:hover,
+.quick-amt:hover,
+.preset-btn:hover {
   background: var(--bg-card-hover) !important;
 }
 
@@ -236,18 +240,24 @@ label {
 .d-label,
 .s-label,
 .tx-amount .time,
-.member-id {
+.member-id,
+.quick-amt,
+.preset-btn {
   color: var(--text-secondary) !important;
 }
 
 /* Inputs */
 .form-input,
-.form-select {
+.form-select,
+.search-input,
+.amount-input {
   background: var(--bg-input) !important;
   border-color: var(--border) !important;
   color: var(--text-primary) !important;
 }
-.form-input::placeholder {
+.form-input::placeholder,
+.search-input::placeholder,
+.amount-input::placeholder {
   color: var(--text-muted) !important;
 }
 
